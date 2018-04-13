@@ -1,0 +1,37 @@
+@media print {.botoes{display:none}}
+* {margin:0px;padding:0px;}
+body {width:960px;margin:20px auto;font-family:"Trebuchet MS",Verdana,sans-serif}
+p {margin:0px;}
+table {width:100%;border-collapse:collapse;border:2px solid #000;margin-top:10px;}
+table.header, table.header td, table.botoes, table.botoes td {border:0px;}
+/*.basico tr {border-bottom:1px solid #ccc;}*/
+td {padding:5px;font-size:12px;border:1px solid #ccc;}
+input[type="text"], textarea {border:0px;width:100%;clear:both;}
+textarea {min-width:100%;max-width:100%;}
+label {font-weight:bold;font-size:12px;}
+button, input[type="submit"] {padding: 3px;}
+input[type="submit"] {cursor: pointer;}
+.titulo-bg {background:#f9f9f9;}
+.titulo-center {text-align:center;}
+.titulo-right {text-align:right;}
+.titulo-bold {font-weight:bold;}
+.titulo-size {font-size:14px;text-transform:uppercase;}
+.titulo-hr {border-top: 1px solid #000 !important;font-weight:bold;}
+.height {height:150px;}
+.sign, .sign td {border:0px;}
+.sign td.bordered {border:2px solid #000;}
+.sign td.no-border-top {border-top:0px;}
+.sign td.no-border-bottom {border-bottom:0px;}
+.inline {border-bottom: 1px solid #000 !important;clear: none !important;text-align: center;width: auto !important;}
+.descbox {height:160px;}
+.descbox2 {height:60px;}
+.alert {margin:20px 0px;font-size:13px}
+.center {text-align:center;}
+
+a:link {color:#2C3B63;background-color:transparent;text-decoration:none;}
+a:visited {color:#2C3B63;background-color:transparent;text-decoration:none;}
+a:hover {color:#ff0000;background-color:transparent;text-decoration:underline;font-weight:bold;}
+a:active {color:#ff0000;background-color:transparent;text-decoration:underline;}
+.roteiro {margin: 0;}
+.help {color: #fff !important; width: 30px; height: 30px; line-height: 28px; border-radius: 50%; background-color: #018FFF !important; float: right; text-align: center; font-weight: bold; font-size: 14px; box-shadow: 0px 0px 2px #018FFF; border: 2px solid #fff; box-sizing: border-box;}
+.help:hover {text-decoration: none; color: #000 !important;}
