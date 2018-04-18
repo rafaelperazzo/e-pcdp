@@ -212,7 +212,7 @@ function Header()
     $this->Cell(80);
     $this->Ln(5);
     $this->SetFont('Times','IB',13);
-    $this->Cell(0,0,'PCDP - Proposta de Concessão de Diárias e Passagens',0,0,'C');
+    $this->Cell(0,0,'FACD - Formulário de Afastamento de Curta Duração',0,0,'C');
     // Line break
     $this->Ln(1);
 }
@@ -489,15 +489,24 @@ $pdf->Cell(40,0,strtoupper($_POST['uf']),0,0,'L');
 $pdf->Ln($ESPACO_LINHAS);
 
 $pdf->SetFont('Times','B',10);
-$pdf->Cell(70,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
+$pdf->Cell(40,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
 $pdf->SetFont('Times','',10);
 //Auxilio alimentação, em caso de SEPE
 if (strcmp($_POST['tipo'],"SEPE - Servidor de outro poder ou esfera")==0) {
 	if (empty($_POST['alimentacao'])) {
 		travar("Favor, preencher o valor do auxílio alimentação, pois o tipo do proposto é de outro poder ou esfera.");
 	}
+	if (empty($_POST['transporte'])) {
+		travar("Favor, preencher o valor do auxílio transporte, pois o tipo do proposto é de outro poder ou esfera.");
+	}
 }
-$pdf->Cell(80,0,$_POST['alimentacao'],0,0,'L');
+$pdf->Cell(45,0,$_POST['alimentacao'],0,0,'L');
+
+$pdf->SetFont('Times','B',10);
+$pdf->Cell(40,0,'Auxílio Transporte (no caso de SEPE): ',0,0,'L');
+$pdf->SetFont('Times','',10);
+$pdf->Cell(60,0,$_POST['transporte'],0,0,'L');
+
 $pdf->Ln($ESPACO_LINHAS);
 
 $pdf->SetFont('Times','B',10);
@@ -662,6 +671,7 @@ if ($diferenca_ida>0) {
 	}
 }
 
+//Justificativa 4: Relevancia do evento
 
 $justificativa = $justificativa . $_POST['txtRelevancia'];
 
@@ -771,12 +781,12 @@ $pdf->SetFont('Arial','',8);
 $pdf->Ln(7);
 $pdf->TabelaRoteiro($header,$data);
 
-$pdf->SetFont('Times','I',8);
+/*$pdf->SetFont('Times','I',8);
 $pdf->Ln(2);
 $art19 = "Art. 19. A prestação de contas do afastamento deverá ser realizada por meio do SCDP, no prazo máximo de 5 (cinco) dias, contados do retorno da viagem, mediante a apresentação dos bilhetes ou canhotos dos cartões de embarque, em original ou segunda via, ou recibo do passageiro obtido quando da realização do check in via internet, ou a declaração fornecida pela companhia aérea, bem como por meio do registro eletrônico da situação da passagem no SCDP. 
 Parágrafo único. Em caso de viagens ao exterior, com ônus ou com ônus limitado, o servidor ficará obrigado, dentro do prazo de 30 (trinta) dias, contado da data do término do afastamento do país, a apresentar relatório circunstanciado das atividades exercidas no exterior, conforme previsão contida no art. 16 do Decreto nº 91.800, de 18 de outubro de 1985, além do cumprimento do que dispõe o caput.";
 $pdf->MultiCell(198,3,$art19,0,'J',false);
-//$pdf->Ln(1);
+//$pdf->Ln(1);*/
 $pdf->SetFont('Times','',10);
 
 //******************************************************
@@ -844,7 +854,7 @@ $pdf->MultiCell(190,5,$documentos_requeridos,0,'J',false);
 
 //############## SUGESTÃO DE VOO #####################
 //Incluir a folha de sugestão de voo.
-if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)||(strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0))) { //Se a solicitação incluir passagens
+if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)||(strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0)) { //Se a solicitação incluir passagens
 	$pdf->AddPage();
 	$pdf->Ln(10);
 	$pdf->SetFont('Times','B',20);
