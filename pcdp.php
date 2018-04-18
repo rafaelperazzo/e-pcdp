@@ -269,19 +269,23 @@ function TabelaRoteiro($header, $data)
     // Cabeçalho
     $i=1;
     $this->SetFont('Arial','B',10);
-    $this->Cell(95,7,'Origem',1,0,'C'); //Origem
-    $this->Cell(95,7,'Destino',1,0,'C'); //Destino
+    $this->Cell(68,7,'Origem',1,0,'C'); //Origem
+    $this->Cell(68,7,'Destino',1,0,'C'); //Destino
+    $this->Cell(54,7,'Transporte',1,0,'C'); //Transporte
     $this->SetFont('Arial','',8);
     $this->Ln();
     foreach($header as $col) {
         if (($i==3)||($i==6)) { //UF
-			$this->Cell(20,7,$col,1,0,'C');
+			$this->Cell(10,7,$col,1,0,'C');
 		}
         else if (($i==1)||($i==4)){ //Data
-			$this->Cell(25,7,$col,1,0,'C');
+			$this->Cell(18,7,$col,1,0,'C');
+		}
+		else if ($i==7){ //Transporte
+			$this->Cell(54,7,$col,1,0,'C');
 		}
 		else {
-			$this->Cell(50,7,$col,1,0,'C'); //Local
+			$this->Cell(40,7,$col,1,0,'C'); //Local
 		}
         $i = $i + 1;
 	}
@@ -294,13 +298,16 @@ function TabelaRoteiro($header, $data)
         $i = 1;
         foreach($row as $col) {
             if (($i==3)||($i==6)) { //UF
-				$this->Cell(20,7,$col,1,0,'C');
+				$this->Cell(10,7,$col,1,0,'C');
 			}
 			else if (($i==1)||($i==4)){ //Data
-				$this->Cell(25,7,$col,1,0,'C');
+				$this->Cell(18,7,$col,1,0,'C');
+			}
+			else if ($i==7){ //Transporte
+				$this->Cell(54,7,$col,1,0,'C');
 			}
 			else {
-				$this->Cell(50,7,$col,1,0,'C'); //Local
+				$this->Cell(40,7,$col,1,0,'C'); //Local
 			}
             $i = $i + 1;
 		}
@@ -688,7 +695,7 @@ $pdf->SetFont('Times','IB',10);
 $pdf->Cell(0,10,'Roteiro da Viagem',0,0,'L');
 $pdf->Line(10, $pdf->GetY()+7, 200, $pdf->GetY()+7);
 $pdf->Ln(2);
-$header = array('Data', 'Local', 'UF', 'Data', 'Local', 'UF');
+$header = array('Data', 'Local', 'UF', 'Data', 'Local', 'UF','Tipo');
 //Obtendo as datas da ida e da volta
 //Trecho 1
 $trecho_data_origem_1 = $_POST['roteiro_data_orig_1'];
@@ -697,6 +704,7 @@ $trecho_local_origem_1 = $_POST['local_orig_1'];
 $trecho_uf_origem_1 = $_POST['uf_orig_1'];
 $trecho_local_destino_1 = $_POST['local_dest_1'];
 $trecho_uf_destino_1 = $_POST['uf_dest_1'];
+$meio_transporte_1 = $_POST['meio_transporte1'];
 //Trecho 2
 $trecho_data_origem_2 = $_POST['roteiro_data_orig_2'];
 $trecho_data_destino_2 = $_POST['roteiro_data_dest_2'];
@@ -704,6 +712,7 @@ $trecho_local_origem_2 = $_POST['local_orig_2'];
 $trecho_uf_origem_2 = $_POST['uf_orig_2'];
 $trecho_local_destino_2 = $_POST['local_dest_2'];
 $trecho_uf_destino_2 = $_POST['uf_dest_2'];
+$meio_transporte_2 = $_POST['meio_transporte2'];
 //Trecho 3
 $trecho_data_origem_3 = $_POST['roteiro_data_orig_3'];
 $trecho_data_destino_3 = $_POST['roteiro_data_dest_3'];
@@ -711,6 +720,7 @@ $trecho_local_origem_3 = $_POST['local_orig_3'];
 $trecho_uf_origem_3 = $_POST['uf_orig_3'];
 $trecho_local_destino_3 = $_POST['local_dest_3'];
 $trecho_uf_destino_3 = $_POST['uf_dest_3'];
+$meio_transporte_3 = $_POST['meio_transporte3'];
 //Trecho 4
 $trecho_data_origem_4 = $_POST['roteiro_data_orig_4'];
 $trecho_data_destino_4 = $_POST['roteiro_data_dest_4'];
@@ -718,6 +728,7 @@ $trecho_local_origem_4 = $_POST['local_orig_4'];
 $trecho_uf_origem_4 = $_POST['uf_orig_4'];
 $trecho_local_destino_4 = $_POST['local_dest_4'];
 $trecho_uf_destino_4 = $_POST['uf_dest_4'];
+$meio_transporte_4 = $_POST['meio_transporte4'];
 //Trecho 5
 $trecho_data_origem_5 = $_POST['roteiro_data_orig_5'];
 $trecho_data_destino_5 = $_POST['roteiro_data_dest_5'];
@@ -725,6 +736,7 @@ $trecho_local_origem_5 = $_POST['local_orig_5'];
 $trecho_uf_origem_5 = $_POST['uf_orig_5'];
 $trecho_local_destino_5 = $_POST['local_dest_5'];
 $trecho_uf_destino_5 = $_POST['uf_dest_5'];
+$meio_transporte_5 = $_POST['meio_transporte5'];
 //Trecho 6
 $trecho_data_origem_6 = $_POST['roteiro_data_orig_6'];
 $trecho_data_destino_6 = $_POST['roteiro_data_dest_6'];
@@ -732,7 +744,7 @@ $trecho_local_origem_6 = $_POST['local_orig_6'];
 $trecho_uf_origem_6 = $_POST['uf_orig_6'];
 $trecho_local_destino_6 = $_POST['local_dest_6'];
 $trecho_uf_destino_6 = $_POST['uf_dest_6'];
-
+$meio_transporte_6 = $_POST['meio_transporte6'];
 //Verificando a data da ida e volta da viagem!
 $dia_ida = $trecho_data_origem_1;
 if (!empty($_POST['roteiro_data_orig_6'])) {
@@ -762,18 +774,18 @@ if (($diarias>3)and(strcasecmp("balcao",$_POST['tipo_pedido'])==0)) {
 
 //Montando roteiro
 $arquivo = fopen("roteiro.txt", "w");
-$txt1 = "$trecho_data_origem_1;$trecho_local_origem_1;$trecho_uf_origem_1; $trecho_data_destino_1; $trecho_local_destino_1;$trecho_uf_destino_1 \n"; 
-$txt2 = "$trecho_data_origem_2;$trecho_local_origem_2;$trecho_uf_origem_2; $trecho_data_destino_2; $trecho_local_destino_2;$trecho_uf_destino_2 \n"; 
-$txt3 = "$trecho_data_origem_3;$trecho_local_origem_3;$trecho_uf_origem_3; $trecho_data_destino_3; $trecho_local_destino_3;$trecho_uf_destino_3 \n"; 
-$txt4 = "$trecho_data_origem_4;$trecho_local_origem_4;$trecho_uf_origem_4; $trecho_data_destino_4; $trecho_local_destino_4;$trecho_uf_destino_4 \n"; 
-$txt5 = "$trecho_data_origem_5;$trecho_local_origem_5;$trecho_uf_origem_5; $trecho_data_destino_5; $trecho_local_destino_5;$trecho_uf_destino_5 \n"; 
-$txt6 = "$trecho_data_origem_6;$trecho_local_origem_6;$trecho_uf_origem_6; $trecho_data_destino_6; $trecho_local_destino_6;$trecho_uf_destino_6 \n"; 
+$txt1 = "$trecho_data_origem_1;$trecho_local_origem_1;$trecho_uf_origem_1; $trecho_data_destino_1; $trecho_local_destino_1;$trecho_uf_destino_1; $meio_transporte_1 \n"; 
+$txt2 = "$trecho_data_origem_2;$trecho_local_origem_2;$trecho_uf_origem_2; $trecho_data_destino_2; $trecho_local_destino_2;$trecho_uf_destino_2; $meio_transporte_2 \n"; 
+$txt3 = "$trecho_data_origem_3;$trecho_local_origem_3;$trecho_uf_origem_3; $trecho_data_destino_3; $trecho_local_destino_3;$trecho_uf_destino_3; $meio_transporte_3 \n"; 
+$txt4 = "$trecho_data_origem_4;$trecho_local_origem_4;$trecho_uf_origem_4; $trecho_data_destino_4; $trecho_local_destino_4;$trecho_uf_destino_4; $meio_transporte_4 \n"; 
+$txt5 = "$trecho_data_origem_5;$trecho_local_origem_5;$trecho_uf_origem_5; $trecho_data_destino_5; $trecho_local_destino_5;$trecho_uf_destino_5; $meio_transporte_5 \n"; 
+$txt6 = "$trecho_data_origem_6;$trecho_local_origem_6;$trecho_uf_origem_6; $trecho_data_destino_6; $trecho_local_destino_6;$trecho_uf_destino_6; $meio_transporte_6 \n"; 
 if (strlen($txt1)>9) fwrite($arquivo, $txt1);
 if (strlen($txt2)>9) fwrite($arquivo, $txt2);
-if (strlen($txt3)>9) fwrite($arquivo, $txt3);
-if (strlen($txt4)>9) fwrite($arquivo, $txt4);
-if (strlen($txt5)>9) fwrite($arquivo, $txt5);
-if (strlen($txt6)>9) fwrite($arquivo, $txt6);
+if (strlen($txt3)>20) fwrite($arquivo, $txt3);
+if (strlen($txt4)>20) fwrite($arquivo, $txt4);
+if (strlen($txt5)>20) fwrite($arquivo, $txt5);
+if (strlen($txt6)>20) fwrite($arquivo, $txt6);
 fclose($arquivo);
 $data = $pdf->LoadData('roteiro.txt');
 $pdf->SetFont('Arial','',8);

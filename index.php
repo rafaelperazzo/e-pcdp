@@ -241,20 +241,6 @@
               </select>
               <br>
             </td>
-            <td><span style="font-weight: bold;">Meio de transporte: </span><br>
-            </td>
-            <td>
-              <select required="required" name="meio_transporte">
-                <option selected="selected" value="Aéreo">Aéreo</option>
-                <option value="Ferroviário">Ferroviário</option>
-                <option value="Fluvial">Fluvial</option>
-                <option value="Marítimo">Marítimo</option>
-                <option value="Rodoviário">Rodoviário</option>
-                <option value="Veículo Oficial">Veículo Oficial</option>
-                <option value="Veículo Próprio">Veículo Próprio</option>
-              </select>
-              <br>
-            </td>
           </tr>
           <tr>
             <td><label></label> <span style="font-weight: bold;">Motivo da
@@ -268,14 +254,6 @@
               <input name="motivo_viagem" value="Encontro/Seminário" type="radio">
               Encontro/Seminário <input name="motivo_viagem" value="Treinamento"
                 type="radio"> Treinamento<br>
-            </td>
-            <td><br>
-            </td>
-            <td><br>
-            </td>
-            <td><br>
-            </td>
-            <td><br>
             </td>
           </tr>
         </tbody>
@@ -516,7 +494,6 @@
             </td>
             <td>
               <p class="titulo-center">Tipo</p>
-              <p class="titulo-center">(aéreo, rodoviário, ferroviário,...)</p>
             </td>
           </tr>
           <tr>
@@ -524,28 +501,50 @@
                 id="roteiro_data_orig_1" name="roteiro_data_orig_1" type="text"></td>
             <td><input required="required" id="local_orig_1" name="local_orig_1"
                 type="text"></td>
-            <td><input required="required" id="uf_orig_1" name="uf_orig_1" type="text"></td>
+            <td><input required="required" id="uf_orig_1" name="uf_orig_1" maxlength="2"
+                type="text"></td>
             <td><input required="required" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
                 id="roteiro_data_dest_1" name="roteiro_data_dest_1" type="text"></td>
             <td><input required="required" id="local_dest_1" name="local_dest_1"
                 type="text"></td>
-            <td><input required="required" id="uf_dest_1" name="uf_dest_1" type="text"></td>
-            <td><input id="roteiro_tipo_1" name="roteiro_tipo_1" required="required"
+            <td><input required="required" id="uf_dest_1" name="uf_dest_1" maxlength="2"
                 type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte1">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td><input required="required" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
                 id="roteiro_data_orig_2" name="roteiro_data_orig_2" type="text"></td>
             <td><input required="required" id="local_orig_2" name="local_orig_2"
                 type="text"></td>
-            <td><input required="required" id="uf_orig_2" name="uf_orig_2" type="text"></td>
+            <td><input required="required" id="uf_orig_2" name="uf_orig_2" maxlength="2"
+                type="text"></td>
             <td><input required="required" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
                 id="roteiro_data_dest_2" name="roteiro_data_dest_2" type="text"></td>
             <td><input required="required" id="local_dest_2" name="local_dest_2"
                 type="text"></td>
-            <td><input required="required" id="uf_dest_2" name="uf_dest_2" type="text"></td>
-            <td><input id="roteiro_tipo_2" name="roteiro_tipo_2" required="required"
+            <td><input required="required" id="uf_dest_2" name="uf_dest_2" maxlength="2"
                 type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte2">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td><input pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
@@ -556,7 +555,17 @@
                 id="roteiro_data_dest_3" name="roteiro_data_dest_3" type="text"></td>
             <td><input id="local_dest_3" name="local_dest_3" value="" type="text"></td>
             <td><input id="uf_dest_3" name="uf_dest_3" value="" type="text"></td>
-            <td><input id="roteiro_tipo_3" name="roteiro_tipo_3" value="" type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte3">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td><input pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
@@ -567,7 +576,17 @@
                 id="roteiro_data_dest_4" name="roteiro_data_dest_4" type="text"></td>
             <td><input id="local_dest_4" name="local_dest_4" value="" type="text"></td>
             <td><input id="uf_dest_4" name="uf_dest_4" value="" type="text"></td>
-            <td><input id="roteiro_tipo_4" name="roteiro_tipo_4" value="" type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte4">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td><input pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
@@ -578,7 +597,17 @@
                 id="roteiro_data_dest_5" name="roteiro_data_dest_5" type="text"></td>
             <td><input id="local_dest_5" name="local_dest_5" value="" type="text"></td>
             <td><input id="uf_dest_5" name="uf_dest_5" value="" type="text"></td>
-            <td><input id="roteiro_tipo_5" name="roteiro_tipo_5" value="" type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte5">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <td><input pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
@@ -589,7 +618,17 @@
                 id="roteiro_data_dest_6" name="roteiro_data_dest_6" type="text"></td>
             <td><input id="local_dest_6" name="local_dest_6" value="" type="text"></td>
             <td><input id="uf_dest_6" name="uf_dest_6" value="" type="text"></td>
-            <td><input id="roteiro_tipo_6" name="roteiro_tipo_6" value="" type="text"></td>
+            <td style="text-align: center;">
+              <select required="required" name="meio_transporte6">
+                <option selected="selected" value="Aéreo">Aéreo</option>
+                <option value="Ferroviário">Ferroviário</option>
+                <option value="Fluvial">Fluvial</option>
+                <option value="Marítimo">Marítimo</option>
+                <option value="Rodoviário">Rodoviário</option>
+                <option value="Veículo Oficial">Veículo Oficial</option>
+                <option value="Veículo Próprio">Veículo Próprio</option>
+              </select>
+            </td>
           </tr>
         </tbody>
       </table>
