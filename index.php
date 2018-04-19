@@ -227,7 +227,7 @@
             <td><span style="font-weight: bold;">Tipo de Solicitação: <br>
               </span><br>
               <span style="font-weight: normal; font-style: italic;">Caso não
-                esteja solicitando passagens ou diárias, seleciona "Ônus
+                esteja solicitando passagens ou diárias, selecione "Ônus
                 Limitado"</span> </td>
             <td>
               <select required="required" name="tipo_solicitacao">
@@ -424,12 +424,16 @@
           </tr>
           <tr>
             <td style="text-align: center;"><b>3. Quando o início da viagem for
-                em data em dia anterior ao início do evento. </b><br>
-              <b><span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplo
+                em data em dia anterior ao início do evento ou quando a volta
+                for em data posterior ao fim do evento. </b><br>
+              <b><span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplos
                   : </span></b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
                   style="color: rgb(255, 0, 0); font-weight: bold;"><span style="color: black;">É
                     necessário viajar um dia antes pois o evento começa as 8:00
-                    da manhã.</span></span><b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
+                    da manhã.<br>
+                    È necessário voltar um dia depois, pois o evento termina as
+                    22:00 e não há vôo no mesmo dia.<br>
+                  </span></span><b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
                       style="color: black;"> </span></span></b> </span></td>
           </tr>
           <tr>
@@ -685,8 +689,9 @@
             <td style="text-align: center;" class=""><input value="Imprimir Formulário"
 type="submit"> <input value="Limpar Formulário" name="clear" onclick="clearFunction()"
 type="submit">&nbsp;</td>
-            <td class="">&nbsp;<a href="pcdp_instrucao_preenchimento.pdf" class="help"
-                title="Instruções de preenchimento em arquivo PDF">?</a> </td>
+            <td class="">&nbsp;Última Atualização: <br>
+              <br>
+              &nbsp;</td>
           </tr>
         </tbody>
       </table>

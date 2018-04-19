@@ -657,12 +657,14 @@ if (!empty($_POST['data_inicio_evento1'])) {
 	$ano = date("Y");
 	$agora = $dia . "/" . $mes . "/" . $ano;
 	$diferenca = diferencaDatas($inicio,$agora);
-	if ($diferenca<10) {
-		if (empty($_POST['justificativa_prazo'])) { //Obrigatório justificar!
-			travar("Seu afastamento inicia em menos de uma semana. Você precisa justificar!");
-		}
-		else {
-			$justificativa = $justificativa . $_POST['justificativa_prazo'] . "\n";
+	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+		if ($diferenca<10) {
+			if (empty($_POST['justificativa_prazo'])) { //Obrigatório justificar!
+				travar("Seu afastamento inicia em menos de uma semana. Você precisa justificar!");
+			}
+			else {
+				$justificativa = $justificativa . $_POST['justificativa_prazo'] . "\n";
+			}
 		}
 	}
 }
@@ -672,6 +674,26 @@ $diferenca_ida = diferencaDatas($_POST['roteiro_data_orig_1'],$_POST['data_inici
 if ($diferenca_ida>0) {
 	if (empty($_POST['justificativa_dia_antes'])) {
 		travar("É necessário justificar o motivo da viagem ser iniciada em dia anterior ao início do evento.");
+	}
+	else {
+		$justificativa = $justificativa . $_POST['justificativa_dia_antes'];
+	}
+}
+
+//Checando final do evento com o fim da viagem
+
+if (!empty($_POST['roteiro_data_dest_1'])) $dataDaVolta = $_POST['roteiro_data_dest_1'];
+if (!empty($_POST['roteiro_data_dest_2'])) $dataDaVolta = $_POST['roteiro_data_dest_2'];
+if (!empty($_POST['roteiro_data_dest_3'])) $dataDaVolta = $_POST['roteiro_data_dest_3'];
+if (!empty($_POST['roteiro_data_dest_4'])) $dataDaVolta = $_POST['roteiro_data_dest_4'];
+if (!empty($_POST['roteiro_data_dest_5'])) $dataDaVolta = $_POST['roteiro_data_dest_5'];
+if (!empty($_POST['roteiro_data_dest_6'])) $dataDaVolta = $_POST['roteiro_data_dest_6'];
+
+//TODO: A data para ser comparada é o término do último evento. Modificar abaixo!
+$diferenca_volta = diferencaDatas($dataDaVolta,$_POST['data_termino_evento1']);
+if ($diferenca_volta>0) {
+	if (empty($_POST['justificativa_dia_antes'])) {
+		travar("É necessário justificar o motivo da viagem de volta ser em dia posterior ao dia do fim do evento.");
 	}
 	else {
 		$justificativa = $justificativa . $_POST['justificativa_dia_antes'];
