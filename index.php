@@ -508,7 +508,7 @@
             </td>
           </tr>
           <tr>
-            <td><input required="required" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
+            <td style="text-align: right;"><input required="required" pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
                 id="roteiro_data_orig_1" name="roteiro_data_orig_1" type="text"></td>
             <td><input required="required" id="local_orig_1" name="local_orig_1"
                 type="text"></td>
@@ -689,7 +689,8 @@
             <td style="text-align: center;" class=""><input value="Imprimir Formulário"
 type="submit"> <input value="Limpar Formulário" name="clear" onclick="clearFunction()"
 type="submit">&nbsp;</td>
-            <td class="">&nbsp;Última Atualização: <br>
+            <td class="">&nbsp;<?php // outputs e.g. 'Last modified: March 04 1998 20:43:59.'
+echo "Última Modificação: " . date ("d/m/Y H:i:s.", getlastmod());?><br>
               <br>
               &nbsp;</td>
           </tr>
