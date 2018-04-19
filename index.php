@@ -23,7 +23,9 @@
     <b> </b>
     <div style="text-align: center;"><b>Responsável: Prof. Rafael Perazzo B Mota
         (inova.prpi@ufca.edu.br)</b></div>
-    <div style="text-align: center;"><b>http://inovacao.ufca.edu.br<br>
+    <div style="text-align: center;"><b><a href="http://inovacao.ufca.edu.br" target="_blank">http://inovacao.ufca.edu.br</a></b></div>
+    <div style="text-align: center;"><b><a href="http://inovacao.ufca.edu.br/sobre/"
+          target="_blank">Contato</a><br>
       </b></div>
     <div style="text-align: center;"><b></b><br>
     </div>
@@ -35,8 +37,8 @@
             <p class="titulo-right titulo-bold titulo-size">FORMULÁRIO DE
               AFASTAMENTO DE CURTA DURAÇÃO</p>
           </td>
-          <td class="botoes"><a href="pcdp_instrucao_preenchimento.pdf" class="help"
-              title="Instruções de preenchimento em arquivo PDF">?</a> </td>
+          <td class="botoes"> <br>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -57,6 +59,7 @@
           <tr>
             <td colspan="8" rowspan="1">Tipo de pedido:
               <select disabled="disabled" name="tipo_pedido">
+                <option value="nenhum">-</option>
                 <option value="balcao">Pedido ordinário a PRPI</option>
                 <option value="edital">Edital de Grupos de Pesquisa</option>
                 <option value="gabinete">Gabinete da reitoria</option>
@@ -110,7 +113,7 @@
                 Departamento de Física, ...</span><span style="font-weight: bold;"><br>
               </span>Caso não se aplique, escreva: N/A<span style="font-weight: bold;"><br>
               </span></td>
-            <td colspan="1"><input name="lotacao" type="text"><br>
+            <td colspan="1" style="text-align: left;"><input name="lotacao" type="text">
             </td>
             <td colspan="1"><br>
             </td>
@@ -173,14 +176,10 @@
           <tr>
             <td rowspan="1" colspan="2"><b>Valor do auxílio Transporte (no caso
                 de SEPE):</b></td>
-            <td rowspan="1" colspan="2"><input name="transporte" type="text"></td>
-            <td><br>
-            </td>
-            <td><br>
-            </td>
-            <td><br>
-            </td>
-            <td><br>
+            <td rowspan="1" colspan="6"><input name="transporte" type="text"><br>
+              <br>
+              <br>
+              <br>
             </td>
           </tr>
           <tr>
@@ -246,7 +245,7 @@
             <td><label></label> <span style="font-weight: bold;">Motivo da
                 viagem:</span><br>
             </td>
-            <td style="background-color: white; width: 0px;"><input name="motivo_viagem"
+            <td style="background-color: white; width: 300px;"><input name="motivo_viagem"
                 value="A serviço" type="radio"> A serviço <input name="motivo_viagem"
                 value="Congresso" checked="checked" type="radio"> Congresso <input
                 name="motivo_viagem" value="Convocação" type="radio">Convocação
@@ -254,6 +253,10 @@
               <input name="motivo_viagem" value="Encontro/Seminário" type="radio">
               Encontro/Seminário <input name="motivo_viagem" value="Treinamento"
                 type="radio"> Treinamento<br>
+            </td>
+            <td><br>
+            </td>
+            <td><br>
             </td>
           </tr>
         </tbody>
@@ -267,10 +270,14 @@
                 (Descrever de forma sucinta o motivo da viagem, local, data e
                 hora de início e término do evento) </p>
               <p class="titulo-center">Exemplos de eventos e/ou atividades: </p>
-              <p class="titulo-center">Congresso de Telefonia, São Paulo/SP. </p>
-              <p class="titulo-center">Palestra do Sir. Isaac Newton. Londres,
-                Reino Unido.</p>
-              <p class="titulo-center">Workshop de Ciêncas Ocultas. Manaus/AM. </p>
+              <p class="titulo-center"><b><span style="color: red;">Congresso de
+                    Telefonia, São Paulo/SP. </span></b></p>
+              <b><span style="color: red;"> </span></b>
+              <p class="titulo-center"><b><span style="color: red;">Palestra do
+                    Sir. Isaac Newton. Londres, Reino Unido.</span></b></p>
+              <b><span style="color: red;"> </span></b>
+              <p class="titulo-center"><b><span style="color: red;">Workshop de
+                    Ciêncas Ocultas. Manaus/AM. </span></b></p>
             </td>
           </tr>
           <tr>
@@ -354,9 +361,9 @@
             </td>
           </tr>
           <tr align="center">
-            <td colspan="10" rowspan="1"><b>****Caso esteja solicitando apenas
-                passagens, apenas dárias, ou nenhum dos dois, justificar
-                abaixo***<br>
+            <td colspan="10" rowspan="1"><b><span style="color: #000099;">****Caso
+                  esteja solicitando apenas passagens, apenas dárias, ou nenhum
+                  dos dois, justificar abaixo***</span><br>
                 Exemplos: </b>Estou solicitando apenas diárias pois vou comprar
               as passagens aereas com recursos próprios.<b><br>
               </b>Estou solicitando apenas passagens pois terei custos de
@@ -632,7 +639,7 @@
           </tr>
         </tbody>
       </table>
-      <table class="observacoes">
+      <table class="observacoes" style="width: 960px; height: 181px;">
         <tbody>
           <tr class="titulo-bg">
             <td>
