@@ -1,5 +1,18 @@
 
 <?php
-$date = new DateTime('2000-01-01');
-echo $date->format('Y/m/d');
+
+/**
+ * Converte uma data no formato yyyy-mm-dd para dd/mm/yyyy 
+ */
+function diaMesAno($data1) {
+	$myDateTime = DateTime::createFromFormat('Y-m-d', $data1);
+	$convertida = $myDateTime->format('d/m/Y');
+	return ($convertida);
+}
+
+$outro = diaMesAno("2018-04-23");
+print("$outro\n");
+
+
+
 ?>
