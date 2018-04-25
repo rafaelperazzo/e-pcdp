@@ -72,7 +72,6 @@ function diaDaSemana($string_data) {
  * 
  * */
 function diferencaDatas($string_data1,$string_data2) {
-	
 	$data1 = DateTime::createFromFormat('d/m/Y', $string_data1);
 	$data2 = DateTime::createFromFormat('d/m/Y', $string_data2);
 	$diferenca = $data2->diff($data1)->format("%a");
@@ -322,6 +321,7 @@ function TabelaRoteiro($header, $data)
 			}
 			else {
 				$this->Cell(40,7,$col,1,0,'C'); //Local
+				//$this->MultiCell(40,7,$col,1,'C',false); //Local
 			}
             $i = $i + 1;
 		}
@@ -658,6 +658,38 @@ $pdf->MultiCell(190,3,$explicacao,0,'J',false);
 $pdf->Ln(1);
 $pdf->SetFont('Times','',10);
 
+/*
+ * Convertendo datas
+ */
+$_POST['roteiro_data_orig_1'] = diaMesAno($_POST['roteiro_data_orig_1']);
+$_POST['roteiro_data_dest_1'] = diaMesAno($_POST['roteiro_data_dest_1']);
+$_POST['roteiro_data_orig_2'] = diaMesAno($_POST['roteiro_data_orig_2']);
+$_POST['roteiro_data_dest_2'] = diaMesAno($_POST['roteiro_data_dest_2']);
+if (!empty($_POST['roteiro_data_orig_3'])) {
+	$_POST['roteiro_data_orig_3'] = diaMesAno($_POST['roteiro_data_orig_3']);
+}
+if (!empty($_POST['roteiro_data_dest_3'])) {
+	$_POST['roteiro_data_dest_3'] = diaMesAno($_POST['roteiro_data_dest_3']);
+}
+if (!empty($_POST['roteiro_data_orig_4'])) {
+	$_POST['roteiro_data_orig_4'] = diaMesAno($_POST['roteiro_data_orig_4']);
+}
+if (!empty($_POST['roteiro_data_dest_4'])) {
+	$_POST['roteiro_data_dest_4'] = diaMesAno($_POST['roteiro_data_dest_4']);
+}
+if (!empty($_POST['roteiro_data_orig_5'])) {
+	$_POST['roteiro_data_orig_5'] = diaMesAno($_POST['roteiro_data_orig_5']);
+}
+if (!empty($_POST['roteiro_data_dest_5'])) {
+	$_POST['roteiro_data_dest_5'] = diaMesAno($_POST['roteiro_data_dest_5']);
+}
+if (!empty($_POST['roteiro_data_orig_6'])) {
+	$_POST['roteiro_data_orig_6'] = diaMesAno($_POST['roteiro_data_orig_6']);
+}
+if (!empty($_POST['roteiro_data_dest_6'])) {
+	$_POST['roteiro_data_dest_6'] = diaMesAno($_POST['roteiro_data_dest_6']);
+}
+
 //Justificativas: Sábados, domingos e feriados, ou prazo de 10 dias
 if (!empty($_POST['data_inicio_evento1'])) {
 	$justificativa = "";
@@ -718,7 +750,6 @@ if (!empty($_POST['data_termino_evento4'])) $descricaoDataDaVolta = $_POST['data
 if (!empty($_POST['data_termino_evento5'])) $descricaoDataDaVolta = $_POST['data_termino_evento5'];
 if (!empty($_POST['data_termino_evento6'])) $descricaoDataDaVolta = $_POST['data_termino_evento6'];
 
-//TODO: A data para ser comparada é o término do último evento. Modificar abaixo!
 $diferenca_volta = diferencaDatas($roteiroDataDaVolta,$descricaoDataDaVolta);
 if ($diferenca_volta>0) {
 	if (empty($_POST['justificativa_dia_antes'])) {
@@ -749,8 +780,7 @@ $pdf->Ln(2);
 $header = array('Data', 'Local', 'UF', 'Data', 'Local', 'UF','Tipo');
 //Obtendo as datas da ida e da volta
 //Trecho 1
-$_POST['roteiro_data_orig_1'] = diaMesAno($_POST['roteiro_data_orig_1']);
-$_POST['roteiro_data_dest_1'] = diaMesAno($_POST['roteiro_data_dest_1']);
+
 $trecho_data_origem_1 = $_POST['roteiro_data_orig_1'];
 $trecho_data_destino_1 = $_POST['roteiro_data_dest_1'];
 $trecho_local_origem_1 = $_POST['local_orig_1'];
@@ -759,8 +789,7 @@ $trecho_local_destino_1 = $_POST['local_dest_1'];
 $trecho_uf_destino_1 = $_POST['uf_dest_1'];
 $meio_transporte_1 = $_POST['meio_transporte1'];
 //Trecho 2
-$_POST['roteiro_data_orig_2'] = diaMesAno($_POST['roteiro_data_orig_2']);
-$_POST['roteiro_data_dest_2'] = diaMesAno($_POST['roteiro_data_dest_2']);
+
 $trecho_data_origem_2 = $_POST['roteiro_data_orig_2'];
 $trecho_data_destino_2 = $_POST['roteiro_data_dest_2'];
 $trecho_local_origem_2 = $_POST['local_orig_2'];
@@ -769,12 +798,7 @@ $trecho_local_destino_2 = $_POST['local_dest_2'];
 $trecho_uf_destino_2 = $_POST['uf_dest_2'];
 $meio_transporte_2 = $_POST['meio_transporte2'];
 //Trecho 3
-if (!empty($_POST['roteiro_data_orig_3'])) {
-	$_POST['roteiro_data_orig_3'] = diaMesAno($_POST['roteiro_data_orig_3']);
-}
-if (!empty($_POST['roteiro_data_dest_3'])) {
-	$_POST['roteiro_data_dest_3'] = diaMesAno($_POST['roteiro_data_dest_3']);
-}
+
 $trecho_data_origem_3 = $_POST['roteiro_data_orig_3'];
 $trecho_data_destino_3 = $_POST['roteiro_data_dest_3'];
 $trecho_local_origem_3 = $_POST['local_orig_3'];
@@ -783,12 +807,6 @@ $trecho_local_destino_3 = $_POST['local_dest_3'];
 $trecho_uf_destino_3 = $_POST['uf_dest_3'];
 $meio_transporte_3 = $_POST['meio_transporte3'];
 //Trecho 4
-if (!empty($_POST['roteiro_data_orig_4'])) {
-	$_POST['roteiro_data_orig_4'] = diaMesAno($_POST['roteiro_data_orig_4']);
-}
-if (!empty($_POST['roteiro_data_dest_4'])) {
-	$_POST['roteiro_data_dest_4'] = diaMesAno($_POST['roteiro_data_dest_4']);
-}
 $trecho_data_origem_4 = $_POST['roteiro_data_orig_4'];
 $trecho_data_destino_4 = $_POST['roteiro_data_dest_4'];
 $trecho_local_origem_4 = $_POST['local_orig_4'];
@@ -797,12 +815,6 @@ $trecho_local_destino_4 = $_POST['local_dest_4'];
 $trecho_uf_destino_4 = $_POST['uf_dest_4'];
 $meio_transporte_4 = $_POST['meio_transporte4'];
 //Trecho 5
-if (!empty($_POST['roteiro_data_orig_5'])) {
-	$_POST['roteiro_data_orig_5'] = diaMesAno($_POST['roteiro_data_orig_5']);
-}
-if (!empty($_POST['roteiro_data_dest_5'])) {
-	$_POST['roteiro_data_dest_5'] = diaMesAno($_POST['roteiro_data_dest_5']);
-}
 $trecho_data_origem_5 = $_POST['roteiro_data_orig_5'];
 $trecho_data_destino_5 = $_POST['roteiro_data_dest_5'];
 $trecho_local_origem_5 = $_POST['local_orig_5'];
@@ -811,12 +823,6 @@ $trecho_local_destino_5 = $_POST['local_dest_5'];
 $trecho_uf_destino_5 = $_POST['uf_dest_5'];
 $meio_transporte_5 = $_POST['meio_transporte5'];
 //Trecho 6
-if (!empty($_POST['roteiro_data_orig_6'])) {
-	$_POST['roteiro_data_orig_6'] = diaMesAno($_POST['roteiro_data_orig_6']);
-}
-if (!empty($_POST['roteiro_data_dest_6'])) {
-	$_POST['roteiro_data_dest_6'] = diaMesAno($_POST['roteiro_data_dest_6']);
-}
 $trecho_data_origem_6 = $_POST['roteiro_data_orig_6'];
 $trecho_data_destino_6 = $_POST['roteiro_data_dest_6'];
 $trecho_local_origem_6 = $_POST['local_orig_6'];

@@ -2,12 +2,11 @@
 * {margin:0px;padding:0px;}
 body {width:960px;margin:20px auto;font-family:"Trebuchet MS",Verdana,sans-serif}
 p {margin:0px;}
-table {width:100%;border-collapse:collapse;border:80px solid #000;margin-top:10px;}
-table.header, table.header td, table.botoes, table.botoes td {border:1px;}
+table {width:100%;border-collapse:collapse;border:2px solid #000;margin-top:10px;}
+table.header, table.header td, table.botoes, table.botoes td {border:0px;}
 /*.basico tr {border-bottom:1px solid #ccc;}*/
 td {padding:5px;font-size:12px;border:1px solid #ccc;}
-input[type="text"], textarea {border:3px;width:100%;clear:both;background-color : #2e48c9;}*/
-
+input[type="text"], textarea {border:0px;width:100%;clear:both;}
 textarea {min-width:100%;max-width:100%;}
 label {font-weight:bold;font-size:12px;}
 button, input[type="submit"] {padding: 3px;}
@@ -19,7 +18,7 @@ input[type="submit"] {cursor: pointer;}
 .titulo-size {font-size:14px;text-transform:uppercase;}
 .titulo-hr {border-top: 1px solid #000 !important;font-weight:bold;}
 .height {height:150px;}
-.sign, .sign td {border:2px;}
+.sign, .sign td {border:0px;}
 .sign td.bordered {border:2px solid #000;}
 .sign td.no-border-top {border-top:0px;}
 .sign td.no-border-bottom {border-bottom:0px;}
