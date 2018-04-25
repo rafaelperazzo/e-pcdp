@@ -10,9 +10,10 @@ function diaMesAno($data1) {
 	return ($convertida);
 }
 
-$outro = diaMesAno("2018-04-23");
-print("$outro\n");
-
+$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', '2018-05-15T08:55');
+$convertida = $myDateTime->format('d/m/Y \a\s H:i');
+print($convertida);
+print("\n");
 
 
 ?>

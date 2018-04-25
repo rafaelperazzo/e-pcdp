@@ -36,6 +36,16 @@ input[type=date] {
     background-color: #e6e6e6;
 }
       
+input[type=datetime-local] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 0px solid gray;
+    border-radius: 4px;
+    background-color: #e6e6e6;
+}
+      
 input[type=time] {
     width: 100%;
     padding: 12px 20px;
@@ -307,7 +317,7 @@ print($_SESSION['id']);?><br>
       <table style="width: 960px; height: 217px;" class="descricao">
         <tbody>
           <tr class="titulo-bg">
-            <td colspan="9" rowspan="1">
+            <td colspan="8" rowspan="1">
               <p class="titulo-center"> <span class="titulo-bold titulo-size">Descrição
                   do Motivo da viagem</span></p>
               <p class="titulo-center">Exemplos de eventos e/ou atividades: </p>
@@ -326,13 +336,11 @@ print($_SESSION['id']);?><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="9"><b>EVENTO/ATIVIDADE 1</b></td>
+            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 1</b></td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="1"><span style="font-style: italic;"><br>
-              </span> <br>
-            </td>
-            <td><span style="font-weight: bold;">Data Início:<br>
+            <td rowspan="1" colspan="1"><span style="font-weight: bold;">Data
+                Início:<br>
                 (dia/mes/ano)</span></td>
             <td><input name="data_inicio_evento1" required="required" type="date"><br>
             </td>
@@ -353,26 +361,30 @@ print($_SESSION['id']);?><br>
             </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><b><b>Descrição do Evento/Atividade.
-                  Cidade/Estado.(escreva no espaço abaixo).</b> <span style="color: red;">Exemplo:
-                  Apresentação de Artigo no Congresso de Telefonia. </span><br>
+            <td rowspan="1" colspan="1"><b>Cidade/UF</b></td>
+            <td rowspan="1" colspan="7"><input name="cidade_evento1" required="required"
+                type="text"><br>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="8"><b><b>Descrição do
+                  Evento/Atividadeo.(escreva no espaço abaixo).</b> <span style="color: red;">Exemplo:
+                  Apresentação de Artigo no Congresso de Telefonia</span><br>
               </b></td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><textarea name="nome_evento1" required="required"
+            <td rowspan="1" colspan="8"><textarea name="nome_evento1" required="required"
 rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="9"><b>EVENTO/ATIVIDADE 2<br>
+            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 2<br>
               </b></td>
           </tr>
           <tr>
             <td rowspan="1" colspan="1"><span style="font-style: italic;"></span><span
-                style="font-style: italic;"></span><span style="font-style: italic;"></span><br>
-              <br>
-            </td>
-            <td><span style="font-weight: bold;">Data Início:<br>
+                style="font-style: italic;"></span><span style="font-style: italic;"></span><span
+                style="font-weight: bold;">Data Início:<br>
                 (dia/mes/ano)</span></td>
             <td><input name="data_inicio_evento2" type="date"><br>
             </td>
@@ -392,22 +404,25 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><b>Descrição do Evento/Atividade.
-                Cidade/Estado.(escreva no espaço abaixo).</b></td>
+            <td><b>Cidade/UF</b></td>
+            <td rowspan="1" colspan="7"><input name="cidade_evento2" type="text"><br>
+            </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><textarea name="nome_evento2" rows="4"></textarea><br>
+            <td rowspan="1" colspan="8"><b>Descrição do Evento/Atividade.
+                (escreva no espaço abaixo).</b></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="8"><textarea name="nome_evento2" rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="9"><b>EVENTO/ATIVIDADE 3<br>
+            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 3<br>
               </b></td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="1"><span style="font-style: italic;"></span>
-              <br>
-            </td>
-            <td><span style="font-weight: bold;">Data Início:<br>
+            <td rowspan="1" colspan="1"><span style="font-style: italic;"></span><span
+                style="font-weight: bold;">Data Início:<br>
                 (dia/mes/ano)</span></td>
             <td><input name="data_inicio_evento3" type="date"><br>
             </td>
@@ -427,15 +442,20 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><b>Descrição do Evento/Atividade.
-                Cidade/Estado.(escreva no espaço abaixo).</b></td>
+            <td><b>Cidade/UF</b></td>
+            <td rowspan="1" colspan="7"><input name="cidade_evento3" type="text"><br>
+            </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="9"><textarea name="nome_evento3" rows="4"></textarea><br>
+            <td rowspan="1" colspan="8"><b>Descrição do Evento/Atividade.
+                (escreva no espaço abaixo).</b></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="8"><textarea name="nome_evento3" rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td colspan="9" rowspan="1"><b><span style="color: #000099;">****Caso
+            <td colspan="8" rowspan="1"><b><span style="color: #000099;">****Caso
                   esteja solicitando apenas passagens, apenas dárias, ou nenhum
                   dos dois, justificar abaixo***</span><br>
                 Exemplos: </b>Estou solicitando apenas diárias pois vou comprar
@@ -446,7 +466,7 @@ rows="4"></textarea><br>
               da instituição. </td>
           </tr>
           <tr>
-            <td colspan="9" rowspan="1"><textarea name="justificativa_diarias" rows="5"></textarea><br>
+            <td colspan="8" rowspan="1"><textarea name="justificativa_diarias" rows="5"></textarea><br>
             </td>
           </tr>
         </tbody>
@@ -723,18 +743,41 @@ rows="4"></textarea><br>
       <table class="observacoes" style="width: 960px; height: 181px;">
         <tbody>
           <tr class="titulo-bg">
-            <td>
+            <td rowspan="1" colspan="6">
               <p class="titulo-center"> <span class="titulo-bold titulo-size">SUGESTÃO
                   DE VÔO</span> <br>
                 (Sugira a opção de voo) (em caso de solicitação de passagens)</p>
+              <p class="titulo-center">Caso seu roteiro de viagem seja apenas
+                uma viagem de ida e volta voando com a mesma empresa, preencha a
+                primeira linha abaixo (empresa, horário de ida e horário de
+                volta). </p>
+              <p class="titulo-center">Caso seu roteiro necessite de sugestões
+                mais detalhadas, utilize apenas o quadro "Informações
+                Adicionais" abaixo. </p>
               <p class="titulo-center"><span style="color: rgb(255, 0, 0);"><span
-                    style="font-weight: bold;">Exemplo: Ida: Juazeiro para São
-                    paulo, saindo as 11:25 do dia 26/10/2017. Volta: São Paulo
-                    para Juazeiro saindo as 15:15 do dia 28/10/2017. </span></span></p>
+                    style="font-weight: bold;"><br>
+                  </span></span></p>
             </td>
           </tr>
           <tr>
-            <td><textarea id="obs" name="obs" rows="5"></textarea></td>
+            <td><b>Empresa</b></td>
+            <td><input name="sugestao_empresa" type="text"><br>
+            </td>
+            <td style="text-align: center;"><b>Data e Horário <br>
+                de Ida</b></td>
+            <td><input name="sugestao_ida" type="datetime-local"><br>
+            </td>
+            <td style="text-align: center;"><b>Data e Horário <br>
+                de Volta</b></td>
+            <td><input name="sugestao_volta" type="datetime-local"><br>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="6"><b>Informações adicionais, caso deseje
+                detalhar a sugestão (opcional)</b></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="6"><textarea id="obs" name="obs" rows="5"></textarea></td>
           </tr>
         </tbody>
       </table>

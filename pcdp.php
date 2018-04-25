@@ -619,16 +619,16 @@ $pdf->SetFont('Times','',10);
 //Motivo da viagem - Montando string
 $_POST['data_inicio_evento1'] = diaMesAno($_POST['data_inicio_evento1']);
 $_POST['data_termino_evento1'] = diaMesAno($_POST['data_termino_evento1']);
-$valor = $_POST['nome_evento1'] . " iniciando em " . $_POST['data_inicio_evento1'] . " as " . $_POST['hora_inicio_evento1'] . " e terminando em " . $_POST['data_termino_evento1'] . " as " . $_POST['hora_termino_evento1'] . ".\n";
+$valor = "Atividade 1: " . $_POST['nome_evento1'] . " iniciando em " . $_POST['data_inicio_evento1'] . " as " . $_POST['hora_inicio_evento1'] . " e terminando em " . $_POST['data_termino_evento1'] . " as " . $_POST['hora_termino_evento1'] . ". " . $_POST['cidade_evento1'] . ".\n";
 if (!empty($_POST['nome_evento2'])) {
 	$_POST['data_inicio_evento2'] = diaMesAno($_POST['data_inicio_evento2']);
 	$_POST['data_termino_evento2'] = diaMesAno($_POST['data_termino_evento2']);
-	$valor = $valor . " " . $_POST['nome_evento2'] . " iniciando em " . $_POST['data_inicio_evento2'] . " as " . $_POST['hora_inicio_evento2'] . " e terminando em " . $_POST['data_termino_evento2'] . " as " . $_POST['hora_termino_evento2'] . ".\n";
+	$valor = $valor . " " . "Atividade 2: " . $_POST['nome_evento2'] . " iniciando em " . $_POST['data_inicio_evento2'] . " as " . $_POST['hora_inicio_evento2'] . " e terminando em " . $_POST['data_termino_evento2'] . " as " . $_POST['hora_termino_evento2'] . ". " . $_POST['cidade_evento2'] . ".\n";
 } 
 if (!empty($_POST['nome_evento3'])) {
 	$_POST['data_inicio_evento3'] = diaMesAno($_POST['data_inicio_evento3']);
 	$_POST['data_termino_evento3'] = diaMesAno($_POST['data_termino_evento3']);
-	$valor = $valor . " " . $_POST['nome_evento3'] . " iniciando em " . $_POST['data_inicio_evento3'] . " as " . $_POST['hora_inicio_evento3'] . " e terminando em " . $_POST['data_termino_evento3'] . " as " . $_POST['hora_termino_evento3'] . ".\n";
+	$valor = $valor . " " . "Atividade 3: " . $_POST['nome_evento3'] . " iniciando em " . $_POST['data_inicio_evento3'] . " as " . $_POST['hora_inicio_evento3'] . " e terminando em " . $_POST['data_termino_evento3'] . " as " . $_POST['hora_termino_evento3'] . ". " . $_POST['cidade_evento3'] . ".\n";
 }
 
 if ((strcasecmp($_POST['tipo_solicitacao'],'Passagens')==0) or (strcasecmp($_POST['tipo_solicitacao'],'Diárias')==0) or (strcasecmp($_POST['tipo_solicitacao'],'limitado')==0)) {
@@ -753,7 +753,7 @@ if (!empty($_POST['data_termino_evento6'])) $descricaoDataDaVolta = $_POST['data
 $diferenca_volta = diferencaDatas($roteiroDataDaVolta,$descricaoDataDaVolta);
 if ($diferenca_volta>0) {
 	if (empty($_POST['justificativa_dia_antes'])) {
-		travar("É necessário justificar o motivo da viagem de volta ser em dia posterior ao dia do fim do evento.");
+		travar("É necessário justificar o motivo da viagem de volta ser em dia posterior ao dia do fim do evento ou atividades.");
 	}
 	else {
 		$justificativa = $justificativa . $_POST['justificativa_dia_antes'];
@@ -1071,14 +1071,30 @@ if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)||(strcasecmp($_POST['
 	$pdf->Cell(0,10,'Sugestão de Voo',0,0,'C');
 	$pdf->Line(10, 40, 200, 40);
 	$pdf->Ln(20);
+	$contador = 0;
+	if ((!empty($_POST['sugestao_empresa'])) and (!empty($_POST['sugestao_ida'])) and (!empty($_POST['sugestao_volta'])))  {
+		$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['sugestao_ida']);
+		$data_sugestao_ida = $myDateTime->format('l, d/m/Y \a\s H:i');
+		$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['sugestao_volta']);
+		$data_sugestao_volta = $myDateTime->format('l, d/m/Y \a\s H:i');
+		$sugestao_voo = "Sugiro a empresa " . $_POST['sugestao_empresa'] . " saindo " . $data_sugestao_ida . " e voltando " . $data_sugestao_volta . ".\n";
+		$contador = $contador + 1;
+	}
 	if (!empty($_POST['obs'])) {
-		$sugestao_voo = $_POST['obs'];
+		$contador = $contador + 1;
+		$sugestao_voo = $sugestao_voo . "\n" . $_POST['obs'];
+		//$pdf->SetFont('Times','',12);
+		//$pdf->MultiCell(190,5,$sugestao_voo,0,'J',false);
+		//assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
+	}
+	
+	if ($contador == 0 ) { //Se a solicitação incluir passagens, é obrigatório preencher a sugestão de voo. 
+		travar("É necessário preencher o campo de sugestão de voo.");
+	}
+	else {
 		$pdf->SetFont('Times','',12);
 		$pdf->MultiCell(190,5,$sugestao_voo,0,'J',false);
 		assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
-	}
-	else { //Se a solicitação incluir passagens, é obrigatório preencher a sugestão de voo. 
-		travar("É necessário preencher o campo de sugestão de voo.");
 	}
 	
 }
