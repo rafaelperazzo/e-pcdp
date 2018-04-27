@@ -13,6 +13,31 @@
 		function howtoFunction() {		
 			location.href = "pcdp_instrucao_preenchimento.pdf";		
 		}
+      
+    function copy() {
+    	document.pcdp_form.roteiro_data_orig_1.value = document.pcdp_form.data_inicio_evento1.value;
+      document.pcdp_form.roteiro_data_dest_1.value = document.pcdp_form.data_inicio_evento1.value;
+      document.pcdp_form.roteiro_data_orig_2.value = document.pcdp_form.data_termino_evento1.value;
+      document.pcdp_form.roteiro_data_dest_2.value = document.pcdp_form.data_termino_evento1.value;
+      
+    }
+      
+    function copy_sugestao() {
+    	 document.pcdp_form.sugestao_ida.value = document.pcdp_form.roteiro_data_orig_1.value;
+       document.pcdp_form.sugestao_volta.value = document.pcdp_form.roteiro_data_orig_2.value;
+    }
+      
+    function cidade_estado() {
+    	
+      var str = document.pcdp_form.cidade_evento1.value;
+      var pos = str.search("/");
+      var estado = str.substr(pos+1,2);
+      var cidade = str.slice(0,pos);
+      document.pcdp_form.local_dest_1.value = cidade;
+      document.pcdp_form.uf_dest_1.value = estado;
+      document.pcdp_form.local_orig_2.value = cidade;
+      document.pcdp_form.uf_orig_2.value = estado;
+    }
 
 	</script>
     <meta content="Coordenadoria de Inovação - PRPI" name="author">
@@ -88,6 +113,7 @@ textarea {
           <td>
             <p class="titulo-right titulo-bold titulo-size">FORMULÁRIO DE
               AFASTAMENTO DE CURTA DURAÇÃO</p>
+            <p class="titulo-right titulo-bold titulo-size"><i>(antigo PCDP)</i></p>
           </td>
           <td class="botoes"> <br>
             <br>
@@ -101,11 +127,16 @@ print($_SESSION['id']);?><br>
       method="post"> <input name="MAX_FILE_SIZE" value="30000" type="hidden">
       <table class="basico">
         <tbody>
+          <tr align="center">
+            <td rowspan="1" colspan="8" style="background-color: #999999;">
+              <h1><b>PARTE 1</b></h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td colspan="8">
-              <p class="titulo-center titulo-bold titulo-size">DADOS DO PROPOSTO
-                <span style="font-style: italic;">(<span style="font-weight: normal;">A
-                    PESSOA QUE VAI VIAJAR)</span></span></p>
+              <h1 class="titulo-center titulo-bold titulo-size">DADOS DO
+                PROPOSTO <span style="font-style: italic;">(<span style="font-weight: normal;">A
+                    PESSOA QUE VAI VIAJAR)</span></span></h1>
               <p class="titulo-center titulo-bold titulo-size"><span style="font-style: italic;"><span
                     style="font-weight: normal;">(não é necessariamente quem
                     está preenchendo)</span></span></p>
@@ -126,10 +157,10 @@ print($_SESSION['id']);?><br>
               </span><span style="font-style: italic;">(da pessoa que vai
                 viajar)</span><span style="font-weight: bold;"><br>
               </span></td>
-            <td colspan="4" rowspan="1">
+            <td colspan="4" rowspan="1"> 
               <select required="required" name="tipo">
-                <option selected="selected" value="Servidor da UFCA">Servidor da
-                  UFCA</option>
+                <option disabled selected value> -- selecione um opção -- </option>
+                <option value="Servidor da UFCA">Servidor da UFCA</option>
                 <option value="Colaborador Eventual">Colaborador Eventual</option>
                 <option value="Militar">Militar</option>
                 <option value="Servidor Convidado">Servidor Convidado</option>
@@ -176,7 +207,10 @@ print($_SESSION['id']);?><br>
             </td>
           </tr>
           <tr>
-            <td width="10%"><label>RG:</label></td>
+            <td style="text-align: center;" width="10%"><label>RG:<br>
+              </label><span style="font-weight: normal; font-style: italic;">(ou
+                outro document ode identificação )<br>
+              </span></td>
             <td width="12%"><input required="required" id="cep" name="rg" type="text"></td>
             <td width="5%"><label>Orgão Emissor:<br>
                 <span style="font-weight: normal; font-style: italic;">Ex:
@@ -237,7 +271,7 @@ print($_SESSION['id']);?><br>
           </tr>
           <tr>
             <td colspan="8">
-              <p class="titulo-center titulo-bold titulo-size">Dados BancárioS</p>
+              <h1 class="titulo-center titulo-bold titulo-size">Dados BancárioS</h1>
             </td>
           </tr>
           <tr>
@@ -263,9 +297,14 @@ print($_SESSION['id']);?><br>
       <br>
       <table class="motivo">
         <tbody>
+          <tr>
+            <td colspan="6" rowspan="1" style="background-color: #999999;">
+              <h1 style="text-align: center;">PARTE 2</h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td colspan="6" rowspan="1">
-              <p class="titulo-center titulo-bold titulo-size">viagem</p>
+              <h1 class="titulo-center titulo-bold titulo-size">viagem</h1>
             </td>
           </tr>
           <tr>
@@ -288,8 +327,8 @@ print($_SESSION['id']);?><br>
                 <option value="Diárias">Diárias</option>
                 <option selected="selected" value="Passagens e Diárias">Passagens
                   e Diárias</option>
-                <option value="limitado">Ônus Limitado (sem pedido de diárias e
-                  passagens)</option>
+                <option value="limitado">Afastamento com Ônus Limitado (sem
+                  pedido de diárias e passagens)</option>
               </select>
               <br>
             </td>
@@ -314,12 +353,17 @@ print($_SESSION['id']);?><br>
           </tr>
         </tbody>
       </table>
-      <table style="width: 960px; height: 217px;" class="descricao">
+      <table class="descricao">
         <tbody>
+          <tr>
+            <td colspan="8" rowspan="1" style="background-color: #999999;">
+              <h1 style="text-align: center;">PARTE 3</h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td colspan="8" rowspan="1">
-              <p class="titulo-center"> <span class="titulo-bold titulo-size">Descrição
-                  do Motivo da viagem</span></p>
+              <h1 class="titulo-center"> <span class="titulo-bold titulo-size">Descrição
+                  do Motivo da viagem</span></h1>
               <p class="titulo-center">Exemplos de eventos e/ou atividades: </p>
               <p class="titulo-center"><b><span style="color: red;">Apresentação
                     de Artigo no Congresso de Telefonia, São Paulo/SP. </span></b></p>
@@ -336,7 +380,9 @@ print($_SESSION['id']);?><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 1</b></td>
+            <td rowspan="1" colspan="8">
+              <h2><b>EVENTO/ATIVIDADE 1</b></h2>
+            </td>
           </tr>
           <tr>
             <td rowspan="1" colspan="1"><span style="font-weight: bold;">Data
@@ -352,7 +398,7 @@ print($_SESSION['id']);?><br>
             <td><span style="font-weight: bold;">Data término:<br>
                 (dia/mes/ano)</span></td>
             <td style="width: 56pt; background-color: white;"><input name="data_termino_evento1"
-                required="required" type="date"><br>
+                required="required" onblur="copy()" type="date"><br>
             </td>
             <td><span style="font-weight: bold;">Hora término:<br>
                 (Hora:Minutos)</span></td>
@@ -363,12 +409,12 @@ print($_SESSION['id']);?><br>
           <tr>
             <td rowspan="1" colspan="1"><b>Cidade/UF</b></td>
             <td rowspan="1" colspan="7"><input name="cidade_evento1" required="required"
-                type="text"><br>
+                pattern="[a-z]+\/[a-z][a-z]" onblur="cidade_estado()" type="text"><br>
             </td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="8"><b><b>Descrição do
-                  Evento/Atividadeo.(escreva no espaço abaixo).</b> <span style="color: red;">Exemplo:
+            <td rowspan=" 1" =""="" colspan="8" type="text"><b><b>Descrição do
+                  Evento/Atividade.(escreva no espaço abaixo).</b> <span style="color: red;">Exemplo:
                   Apresentação de Artigo no Congresso de Telefonia</span><br>
               </b></td>
           </tr>
@@ -378,8 +424,10 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 2<br>
-              </b></td>
+            <td rowspan="1" colspan="8">
+              <h2><b>EVENTO/ATIVIDADE 2<br>
+                </b></h2>
+            </td>
           </tr>
           <tr>
             <td rowspan="1" colspan="1"><span style="font-style: italic;"></span><span
@@ -417,8 +465,10 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td rowspan="1" colspan="8"><b>EVENTO/ATIVIDADE 3<br>
-              </b></td>
+            <td rowspan="1" colspan="8">
+              <h2><b>EVENTO/ATIVIDADE 3<br>
+                </b></h2>
+            </td>
           </tr>
           <tr>
             <td rowspan="1" colspan="1"><span style="font-style: italic;"></span><span
@@ -454,25 +504,15 @@ rows="4"></textarea><br>
             <td rowspan="1" colspan="8"><textarea name="nome_evento3" rows="4"></textarea><br>
             </td>
           </tr>
-          <tr align="center">
-            <td colspan="8" rowspan="1"><b><span style="color: #000099;">****Caso
-                  esteja solicitando apenas passagens, apenas dárias, ou nenhum
-                  dos dois, justificar abaixo***</span><br>
-                Exemplos: </b>Estou solicitando apenas diárias pois vou comprar
-              as passagens aereas com recursos próprios.<b><br>
-              </b>Estou solicitando apenas passagens pois terei custos de
-              hospedagem.<b><br>
-              </b>Estou solicitando apenas passagens por motivos orçamentários
-              da instituição. </td>
-          </tr>
-          <tr>
-            <td colspan="8" rowspan="1"><textarea name="justificativa_diarias" rows="5"></textarea><br>
-            </td>
-          </tr>
         </tbody>
       </table>
       <table class="justif1">
         <tbody>
+          <tr>
+            <td colspan="6" rowspan="1" style="background-color: #999999;">
+              <h1 style="text-align: center;">PARTE 4</h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td colspan="1">
               <p class="titulo-center titulo-bold titulo-size">Justificativas</p>
@@ -545,6 +585,22 @@ rows="4"></textarea><br>
             <td><textarea name="txtRelevancia" required="required" rows="5"></textarea><br>
             </td>
           </tr>
+          <tr align="center">
+            <td><b>5. Caso esteja solicitando apenas passagens, apenas diárias,
+                ou nenhum dos dois, justificar abaixo<br>
+                <span style="color: red;">Exemplos:</span> </b>Estou
+              solicitando apenas diárias pois vou comprar as passagens aereas
+              com recursos próprios.<b><br>
+              </b>Estou solicitando apenas passagens pois terei custos de
+              hospedagem.<b><br>
+              </b>Estou solicitando apenas passagens por motivos orçamentários
+              da instituição.<br>
+              Não estou solicitando nem passagens nem diárias pois arcarei com
+              os custos. </td>
+          </tr>
+          <tr>
+            <td><textarea name="justificativa_diarias" rows="5"></textarea></td>
+          </tr>
         </tbody>
       </table>
       <table class="justif2">
@@ -557,6 +613,11 @@ rows="4"></textarea><br>
       </table>
       <table class="roteiro">
         <tbody>
+          <tr>
+            <td colspan="7" rowspan="1" style="background-color: #999999;">
+              <h1 style="text-align: center;">PARTE 5</h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td colspan="7">
               <p class="titulo-center titulo-bold titulo-size">Roteiro da Viagem
@@ -742,11 +803,18 @@ rows="4"></textarea><br>
       </table>
       <table class="observacoes" style="width: 960px; height: 181px;">
         <tbody>
+          <tr>
+            <td colspan="6" rowspan="1" style="background-color: #999999;">
+              <h1 style="text-align: center;">PARTE 6</h1>
+            </td>
+          </tr>
           <tr class="titulo-bg">
             <td rowspan="1" colspan="6">
               <p class="titulo-center"> <span class="titulo-bold titulo-size">SUGESTÃO
-                  DE VÔO</span> <br>
-                (Sugira a opção de voo) (em caso de solicitação de passagens)</p>
+                  DE VÔO<br>
+                </span></p>
+              <p class="titulo-center"><span class="titulo-bold titulo-size"></span>(em
+                caso de solicitação de passagens)</p>
               <p class="titulo-center">Caso seu roteiro de viagem seja apenas
                 uma viagem de ida e volta voando com a mesma empresa, preencha a
                 primeira linha abaixo (empresa, horário de ida e horário de
@@ -754,6 +822,12 @@ rows="4"></textarea><br>
               <p class="titulo-center">Caso seu roteiro necessite de sugestões
                 mais detalhadas, utilize apenas o quadro "Informações
                 Adicionais" abaixo. </p>
+              <p class="titulo-center"><b><span style="color: red;">Obs. A
+                    sugestão precisa ser fiel ao roteiro da viagem fornecido na
+                    tabela acima, sob o risco do pedido ser negado. Trata-se de
+                    uma sugestão, não há garantia de que a sugestão será
+                    atendida. <br>
+                  </span></b></p>
               <p class="titulo-center"><span style="color: rgb(255, 0, 0);"><span
                     style="font-weight: bold;"><br>
                   </span></span></p>
@@ -761,7 +835,7 @@ rows="4"></textarea><br>
           </tr>
           <tr>
             <td><b>Empresa</b></td>
-            <td><input name="sugestao_empresa" type="text"><br>
+            <td><input name="sugestao_empresa" onfocus="copy_sugestao()" type="text"><br>
             </td>
             <td style="text-align: center;"><b>Data e Horário <br>
                 de Ida</b></td>

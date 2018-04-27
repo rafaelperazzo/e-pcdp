@@ -15,5 +15,8 @@ $convertida = $myDateTime->format('d/m/Y \a\s H:i');
 print($convertida);
 print("\n");
 
-
+$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', '2018-05-15T08:55');
+$convertida = $myDateTime->format('N');
+print($convertida);
+print("\n");
 ?>

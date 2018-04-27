@@ -16,6 +16,34 @@ function diaMesAno($data1) {
 	return ($convertida);
 }
 
+function diaSemanaCompleto($data1) {
+	
+	if ($data1==1) {
+		return ("segunda-feira");
+	}
+	if ($data1==2) {
+		return ("terça-feira");
+	}
+	if ($data1==3) {
+		return ("quarta-feira");
+	}
+	if ($data1==4) {
+		return ("quinta-feira");
+	}
+	if ($data1==5) {
+		return ("sexta-feira");
+	}
+	if ($data1==6) {
+		return ("sabado");
+	}
+	if ($data1==7) {
+		return ("domingo");
+	}
+	
+	
+	
+}
+
 function assinatura($cidade,$dataCompleta,$pdf) {
 	$pdf->Ln(30);
 	$pdf->Line(60,$pdf->GetY()-5,150,$pdf->GetY()-5);
@@ -511,26 +539,38 @@ $pdf->SetFont('Times','',10);
 $pdf->Cell(40,0,strtoupper($_POST['uf']),0,0,'L');
 $pdf->Ln($ESPACO_LINHAS);
 
-$pdf->SetFont('Times','B',10);
-$pdf->Cell(40,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
-$pdf->SetFont('Times','',10);
-//Auxilio alimentação, em caso de SEPE
+//Em caso de SEPE
 if (strcmp($_POST['tipo'],"SEPE - Servidor de outro poder ou esfera")==0) {
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(40,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
+	$pdf->SetFont('Times','',10);
 	if (empty($_POST['alimentacao'])) {
 		travar("Favor, preencher o valor do auxílio alimentação, pois o tipo do proposto é de outro poder ou esfera.");
 	}
 	if (empty($_POST['transporte'])) {
 		travar("Favor, preencher o valor do auxílio transporte, pois o tipo do proposto é de outro poder ou esfera.");
 	}
+	$pdf->Cell(45,0,$_POST['alimentacao'],0,0,'L');
+
+	$pdf->SetFont('Times','B',10);
+	$pdf->Cell(40,0,'Auxílio Transporte (no caso de SEPE): ',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(60,0,$_POST['transporte'],0,0,'L');
+
+	$pdf->Ln($ESPACO_LINHAS);
 }
-$pdf->Cell(45,0,$_POST['alimentacao'],0,0,'L');
 
-$pdf->SetFont('Times','B',10);
-$pdf->Cell(40,0,'Auxílio Transporte (no caso de SEPE): ',0,0,'L');
-$pdf->SetFont('Times','',10);
-$pdf->Cell(60,0,$_POST['transporte'],0,0,'L');
+//Auxilio alimentação, em caso de SEPE
+/*if (strcmp($_POST['tipo'],"SEPE - Servidor de outro poder ou esfera")==0) {
+	if (empty($_POST['alimentacao'])) {
+		travar("Favor, preencher o valor do auxílio alimentação, pois o tipo do proposto é de outro poder ou esfera.");
+	}
+	if (empty($_POST['transporte'])) {
+		travar("Favor, preencher o valor do auxílio transporte, pois o tipo do proposto é de outro poder ou esfera.");
+	}
+}*/
 
-$pdf->Ln($ESPACO_LINHAS);
+
 
 $pdf->SetFont('Times','B',10);
 $pdf->Cell(15,0,'Banco: ',0,0,'L');
@@ -653,9 +693,9 @@ $pdf->SetFont('Times','B',10);
 $pdf->Cell(0,0,'Justificativa',0,1,'L');
 $pdf->SetFont('Times','I',8);
 $pdf->Ln(2);
-$explicacao = 'Justificar quando o afastamento iniciar-se em sextas-feiras, bem os que incluam sábados, domingos ou feriados (§2°, Art. 5°, Dec. 5.992/06) e quando a solicitação não for dentro de prazo mínimo de 10 dias de antecedência em caso de viagem com passagens aéreas º, § 1º IN 03/2015 SLTI/MPOG):';
-$pdf->MultiCell(190,3,$explicacao,0,'J',false);
-$pdf->Ln(1);
+//$explicacao = 'Justificar quando o afastamento iniciar-se em sextas-feiras, bem os que incluam sábados, domingos ou feriados (§2°, Art. 5°, Dec. 5.992/06) e quando a solicitação não for dentro de prazo mínimo de 10 dias de antecedência em caso de viagem com passagens aéreas º, § 1º IN 03/2015 SLTI/MPOG):';
+//$pdf->MultiCell(190,3,$explicacao,0,'J',false);
+//$pdf->Ln(1);
 $pdf->SetFont('Times','',10);
 
 /*
@@ -1074,10 +1114,12 @@ if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)||(strcasecmp($_POST['
 	$contador = 0;
 	if ((!empty($_POST['sugestao_empresa'])) and (!empty($_POST['sugestao_ida'])) and (!empty($_POST['sugestao_volta'])))  {
 		$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['sugestao_ida']);
-		$data_sugestao_ida = $myDateTime->format('l, d/m/Y \a\s H:i');
+		$data_sugestao_ida = $myDateTime->format('d/m/Y \a\s H:i');
+		$dia1 = diaSemanaCompleto($myDateTime->format('N'));
 		$myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', $_POST['sugestao_volta']);
-		$data_sugestao_volta = $myDateTime->format('l, d/m/Y \a\s H:i');
-		$sugestao_voo = "Sugiro a empresa " . $_POST['sugestao_empresa'] . " saindo " . $data_sugestao_ida . " e voltando " . $data_sugestao_volta . ".\n";
+		$data_sugestao_volta = $myDateTime->format('d/m/Y \a\s H:i');
+		$dia2 = diaSemanaCompleto($myDateTime->format('N'));
+		$sugestao_voo = "Sugiro a empresa " . $_POST['sugestao_empresa'] . ", saindo " . $dia1 . ", " . $data_sugestao_ida . " e voltando " . $dia2 . " , " . $data_sugestao_volta . ".\n";
 		$contador = $contador + 1;
 	}
 	if (!empty($_POST['obs'])) {
