@@ -23,8 +23,8 @@
     }
       
     function copy_sugestao() {
-    	 document.pcdp_form.sugestao_ida.value = document.pcdp_form.roteiro_data_orig_1.value;
-       document.pcdp_form.sugestao_volta.value = document.pcdp_form.roteiro_data_orig_2.value;
+    	 document.pcdp_form.sugestao_ida.value = document.pcdp_form.roteiro_data_orig_1.value + "T08:00";
+       document.pcdp_form.sugestao_volta.value = document.pcdp_form.roteiro_data_orig_2.value +"T08:00";
     }
       
     function cidade_estado() {
@@ -37,6 +37,19 @@
       document.pcdp_form.uf_dest_1.value = estado;
       document.pcdp_form.local_orig_2.value = cidade;
       document.pcdp_form.uf_orig_2.value = estado;
+    }
+      
+    function tipo_proposto_change() {
+      var proposto = document.pcdp_form.tipo.value;
+      if (proposto!="SEPE - Servidor de outro poder ou esfera") {
+      	  document.pcdp_form.alimentacao.disabled = true;
+        document.pcdp_form.transporte.disabled = true;
+      }
+      else {
+      		document.pcdp_form.alimentacao.disabled = false;
+        document.pcdp_form.transporte.disabled = false;
+      }
+      
     }
 
 	</script>
@@ -111,8 +124,8 @@ textarea {
         <tr>
           <td><img alt="logo" src="logo2.png"></td>
           <td>
-            <p class="titulo-right titulo-bold titulo-size">FORMULÁRIO DE
-              AFASTAMENTO DE CURTA DURAÇÃO</p>
+            <p class="titulo-right titulo-bold titulo-size"><label id="titulo_formulario">FORMULÁRIO
+                DE AFASTAMENTO DE CURTA DURAÇÃO</label></p>
             <p class="titulo-right titulo-bold titulo-size"><i>(antigo PCDP)</i></p>
           </td>
           <td class="botoes"> <br>
@@ -143,8 +156,8 @@ print($_SESSION['id']);?><br>
             </td>
           </tr>
           <tr>
-            <td colspan="8" rowspan="1">Tipo de pedido:
-              <select disabled="disabled" name="tipo_pedido">
+            <td colspan="8" rowspan="1"><b>Tipo de pedido</b>:
+              <select disabled="disabled" name="tipo_pedido" id="tipo_pedido">
                 <option value="nenhum">-</option>
                 <option value="balcao">Pedido ordinário a PRPI</option>
                 <option value="edital">Edital de Grupos de Pesquisa</option>
@@ -157,9 +170,10 @@ print($_SESSION['id']);?><br>
               </span><span style="font-style: italic;">(da pessoa que vai
                 viajar)</span><span style="font-weight: bold;"><br>
               </span></td>
-            <td colspan="4" rowspan="1"> 
-              <select required="required" name="tipo">
-                <option disabled selected value> -- selecione um opção -- </option>
+            <td colspan="4" rowspan="1">
+              <select required="required" name="tipo" onchange="tipo_proposto_change()">
+                <option disabled="disabled" selected="selected" value=""> --
+                  selecione um opção -- </option>
                 <option value="Servidor da UFCA">Servidor da UFCA</option>
                 <option value="Colaborador Eventual">Colaborador Eventual</option>
                 <option value="Militar">Militar</option>
@@ -256,14 +270,15 @@ print($_SESSION['id']);?><br>
                 id="telefone" name="telefone" type="text"></td>
           </tr>
           <tr>
-            <td colspan="2"><label>Valor do auxílio Alimentação (no caso de
-                SEPE):</label></td>
+            <td colspan="2"><label id="sepe_alimentacao">Valor do auxílio
+                Alimentação (no caso de SEPE):</label></td>
             <td colspan="6"><input id="alimentacao" name="alimentacao" type="text"></td>
           </tr>
           <tr>
-            <td rowspan="1" colspan="2"><b>Valor do auxílio Transporte (no caso
-                de SEPE):</b></td>
-            <td rowspan="1" colspan="6"><input name="transporte" type="text"><br>
+            <td rowspan="1" colspan="2"><b><label id="sepe_transporte">Valor do
+                  auxílio Transporte (no caso de SEPE):</label></b></td>
+            <td rowspan="1" colspan="6"><input id="transporte" name="transporte"
+                type="text"><br>
               <br>
               <br>
               <br>
@@ -319,7 +334,7 @@ print($_SESSION['id']);?><br>
             <td><span style="font-weight: bold;">Tipo de Solicitação: <br>
               </span><br>
               <span style="font-weight: normal; font-style: italic;">Caso não
-                esteja solicitando passagens ou diárias, selecione "Ônus
+                esteja solicitando passagens e diárias, selecione "Ônus
                 Limitado"</span> </td>
             <td>
               <select required="required" name="tipo_solicitacao">
@@ -409,7 +424,8 @@ print($_SESSION['id']);?><br>
           <tr>
             <td rowspan="1" colspan="1"><b>Cidade/UF</b></td>
             <td rowspan="1" colspan="7"><input name="cidade_evento1" required="required"
-                pattern="[a-z]+\/[a-z][a-z]" onblur="cidade_estado()" type="text"><br>
+                pattern="([a-z]|[A-Z]|\s)+\/([a-z]|[A-Z])([a-z]|[A-Z])" onblur="cidade_estado()"
+                type="text"><br>
             </td>
           </tr>
           <tr>
@@ -881,8 +897,13 @@ rows="4"></textarea><br>
         <tbody>
           <tr>
             <td style="text-align: center;" class=""><input value="Imprimir Formulário"
-type="submit"> <input value="Limpar Formulário" name="clear" onclick="clearFunction()"
-type="submit">&nbsp;</td>
+type="submit"></td>
+            <td style="text-align: center;" class=""><input value="Limpar Formulário"
+name="clear" onclick="clearFunction()" type="submit"></td>
+            <td class=""> <input name="saveXml" value="Salvar Formulário" disabled="disabled"
+type="submit"></td>
+            <td class="">Abrir formulário: <input name="userfile" type="file">
+              <input name="loadXml" value="Abrir PCDP" disabled="disabled" type="submit"></td>
             <td class="">&nbsp;<?php // outputs e.g. 'Last modified: March 04 1998 20:43:59.'
 echo "Última Modificação: " . date ("d/m/Y H:i:s.", getlastmod());?><br>
               <br>

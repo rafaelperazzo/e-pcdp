@@ -542,20 +542,22 @@ $pdf->Ln($ESPACO_LINHAS);
 //Em caso de SEPE
 if (strcmp($_POST['tipo'],"SEPE - Servidor de outro poder ou esfera")==0) {
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(40,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
-	$pdf->SetFont('Times','',10);
+	
+	
 	if (empty($_POST['alimentacao'])) {
 		travar("Favor, preencher o valor do auxílio alimentação, pois o tipo do proposto é de outro poder ou esfera.");
 	}
 	if (empty($_POST['transporte'])) {
 		travar("Favor, preencher o valor do auxílio transporte, pois o tipo do proposto é de outro poder ou esfera.");
 	}
-	$pdf->Cell(45,0,$_POST['alimentacao'],0,0,'L');
+	$pdf->Cell(65,0,'Auxílio Alimentação (no caso de SEPE): ',0,0,'L');
+	$pdf->SetFont('Times','',10);
+	$pdf->Cell(20,0,$_POST['alimentacao'],0,0,'L');
 
 	$pdf->SetFont('Times','B',10);
-	$pdf->Cell(40,0,'Auxílio Transporte (no caso de SEPE): ',0,0,'L');
+	$pdf->Cell(60,0,'Auxílio Transporte (no caso de SEPE): ',0,0,'L');
 	$pdf->SetFont('Times','',10);
-	$pdf->Cell(60,0,$_POST['transporte'],0,0,'L');
+	$pdf->Cell(20,0,$_POST['transporte'],0,0,'L');
 
 	$pdf->Ln($ESPACO_LINHAS);
 }
@@ -690,7 +692,7 @@ $pdf->MultiCell(190,5,$valor,1,'J',false);
 $pdf->Ln(3);
 
 $pdf->SetFont('Times','B',10);
-$pdf->Cell(0,0,'Justificativa',0,1,'L');
+$pdf->Cell(0,0,'Justificativas',0,1,'L');
 $pdf->SetFont('Times','I',8);
 $pdf->Ln(2);
 //$explicacao = 'Justificar quando o afastamento iniciar-se em sextas-feiras, bem os que incluam sábados, domingos ou feriados (§2°, Art. 5°, Dec. 5.992/06) e quando a solicitação não for dentro de prazo mínimo de 10 dias de antecedência em caso de viagem com passagens aéreas º, § 1º IN 03/2015 SLTI/MPOG):';
@@ -742,7 +744,7 @@ if (!empty($_POST['data_inicio_evento1'])) {
 			travar("Seu afastamento inicia em uma sexta, (ou inclui) sábado, domingo ou feriado. Você precisa justificar!");
 		}
 		else {
-			$justificativa = $justificativa . $_POST['justificativa_fds'] . "\n";
+			$justificativa = $justificativa . "1. Sabados, domingos ou feriados: " . $_POST['justificativa_fds'] . "\n";
 		}
 	}
 	//Usar a funcao diferencasDatas para checar se é necessário justificar com relação ao prazo
@@ -757,7 +759,7 @@ if (!empty($_POST['data_inicio_evento1'])) {
 				travar("Seu afastamento inicia em menos de uma semana. Você precisa justificar!");
 			}
 			else {
-				$justificativa = $justificativa . $_POST['justificativa_prazo'] . "\n";
+				$justificativa = $justificativa . "2. Prazo de 10 dias: " . $_POST['justificativa_prazo'] . "\n";
 			}
 		}
 	}
@@ -770,7 +772,7 @@ if ($diferenca_ida>0) {
 		travar("É necessário justificar o motivo da viagem ser iniciada em dia anterior ao início do evento.");
 	}
 	else {
-		$justificativa = $justificativa . $_POST['justificativa_dia_antes'];
+		$justificativa = $justificativa . "3. Viajar um dia antes do evento: " . $_POST['justificativa_dia_antes'];
 	}
 }
 
@@ -802,7 +804,7 @@ if ($diferenca_volta>0) {
 
 //Justificativa 4: Relevancia do evento
 
-$justificativa = $justificativa . $_POST['txtRelevancia'];
+$justificativa = $justificativa . "\n" . "4. Relevancia da atividade: " . $_POST['txtRelevancia'];
 
 //$justificativa = $_POST['justificativa_fds'] . "\n" . $_POST['justificativa_prazo'];
 //$pdf->MultiCell(190,5,"\n\n\n",1,'J',false);
@@ -1021,7 +1023,7 @@ if (strcasecmp($_POST['motivo_viagem'],'Congresso')==0) {
 	}
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Comprovante de Aceite do Trabalho.',0,0,'L');
+	$pdf->Cell(20,0,'Comprovante de Aceite do Trabalho ou inscrição.',0,0,'L');
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
@@ -1094,7 +1096,7 @@ $pdf->MultiCell(190,5,$documentos_requeridos,0,'J',false);
 //assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
 $pdf->SetFont('Times','B',20);
 $pdf->Cell(0,10,'Termo de compromisso',0,0,'C');
-$pdf->Line(10, 120, 200, 120);
+//$pdf->Line(10, 120, 200, 120);
 $pdf->Ln(20);
 $termo_compromisso = "Assumo a responsabilidade de prestar contas dessa viagem e comprometo-me a entregar à unidade solicitante o relatório de atividades e os comprovantes de embarque (em casos de passagens aéreas), no prazo máximo de cinco dias a contar do retorno da viagem, de acordo com o artigo 7º do decreto 5.992/2006, Portaria MEC 403/99, que dispõem sobre concessão de viagens. ";
 $pdf->SetFont('Times','',12);
@@ -1104,7 +1106,7 @@ assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
 
 //############## SUGESTÃO DE VOO #####################
 //Incluir a folha de sugestão de voo.
-if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)||(strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0)) { //Se a solicitação incluir passagens
+if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)&&(strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0)) { //Se a solicitação incluir passagens
 	$pdf->AddPage();
 	$pdf->Ln(10);
 	$pdf->SetFont('Times','B',20);
