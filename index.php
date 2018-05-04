@@ -44,15 +44,43 @@
       if (proposto!="SEPE - Servidor de outro poder ou esfera") {
       	  document.pcdp_form.alimentacao.disabled = true;
         document.pcdp_form.transporte.disabled = true;
+        document.pcdp_form.siape.disabled = false;
       }
       else {
       		document.pcdp_form.alimentacao.disabled = false;
         document.pcdp_form.transporte.disabled = false;
+        document.pcdp_form.siape.disabled = true;
       }
       
     }
+      
+    function origem2destino_cidade() {
+    	 document.pcdp_form.local_dest_2.value = document.pcdp_form.local_orig_1.value;
+       
+      
+    }
+      
+    function origem2destino_uf() {
+    	 document.pcdp_form.uf_dest_2.value = document.pcdp_form.uf_orig_1.value;
+    }
 
 	</script>
+    <script type="text/javascript" src="date.js"></script>
+    <script type="text/javascript">
+            
+      			function diferenca_datas(data1,data2) {
+            		var minutes = 1000*60;
+            		var hours = minutes*60;
+            		var days = hours*24;
+
+            		var foo_date1 = getDateFromFormat("02/10/2009", "M/d/y");
+            		var foo_date2 = getDateFromFormat("02/12/2009", "M/d/y");
+
+            		var diff_date = Math.round((foo_date2 - foo_date1)/days);
+            		alert("Diff date is: " + diff_date );  
+            }
+      			
+        </script>
     <meta content="Coordenadoria de Inovação - PRPI" name="author">
     <style> 
 input[type=text] {
@@ -157,11 +185,11 @@ print($_SESSION['id']);?><br>
           </tr>
           <tr>
             <td colspan="8" rowspan="1"><b>Tipo de pedido</b>:
-              <select disabled="disabled" name="tipo_pedido" id="tipo_pedido">
-                <option value="nenhum">-</option>
-                <option value="balcao">Pedido ordinário a PRPI</option>
-                <option value="edital">Edital de Grupos de Pesquisa</option>
-                <option value="gabinete">Gabinete da reitoria</option>
+              <select name="tipo_pedido" id="tipo_pedido">
+                <option disabled="disabled" selected="selected" value=""> --
+                  selecione um opção -- </option>
+                <option value="prpi">Pedido a PRPI</option>
+                <option value="outros">Demais setores e Pro-Reitorias</option>
               </select>
             </td>
           </tr>
@@ -271,14 +299,21 @@ print($_SESSION['id']);?><br>
           </tr>
           <tr>
             <td colspan="2"><label id="sepe_alimentacao">Valor do auxílio
-                Alimentação (no caso de SEPE):</label></td>
-            <td colspan="6"><input id="alimentacao" name="alimentacao" type="text"></td>
+                Alimentação (no caso de SEPE):<br>
+                Ex: R$453,00<br>
+                R$ 1.250,00<br>
+              </label></td>
+            <td colspan="6"><input id="alimentacao" name="alimentacao" disabled="disabled"
+                pattern="R\$ ?\d{1,3}(\.\d{3})*,\d{2}" type="text"></td>
           </tr>
           <tr>
             <td rowspan="1" colspan="2"><b><label id="sepe_transporte">Valor do
-                  auxílio Transporte (no caso de SEPE):</label></b></td>
+                  auxílio Transporte (no caso de SEPE):<br>
+                  Ex: 123,18<br>
+                  R$ 1.890,00<br>
+                </label></b></td>
             <td rowspan="1" colspan="6"><input id="transporte" name="transporte"
-                type="text"><br>
+                disabled="disabled" pattern="R\$ ?\d{1,3}(\.\d{3})*,\d{2}" type="text"><br>
               <br>
               <br>
               <br>
@@ -328,6 +363,7 @@ print($_SESSION['id']);?><br>
               <select required="required" name="tipo_viagem">
                 <option selected="selected" value="Nacional">Nacional</option>
                 <option value="Internacional">Internacional</option>
+                <option value="ambos">Nacional/Internacional</option>
               </select>
               <br>
             </td>
@@ -396,7 +432,9 @@ print($_SESSION['id']);?><br>
           </tr>
           <tr align="center">
             <td rowspan="1" colspan="8">
-              <h2><b>EVENTO/ATIVIDADE 1</b></h2>
+              <h2><b><span style="color: rgb(255, 0, 0); font-weight: bold;"><img
+                      src="obrigatorio.png" alt="obrigatorio" style="width: 27px; height: 23px;">
+                  </span>EVENTO/ATIVIDADE 1</b></h2>
             </td>
           </tr>
           <tr>
@@ -572,16 +610,13 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr>
-            <td style="text-align: center;"><b>3. Quando o início da viagem for
-                em data em dia anterior ao início do evento ou quando a volta
-                for em data posterior ao fim do evento. </b><br>
-              <b><span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplos
+            <td style="text-align: center;"><b>3.1 Quando o início da viagem for
+                em data anterior ao início do evento/atividade. </b><br>
+              <b><span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplo
                   : </span></b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
                   style="color: rgb(255, 0, 0); font-weight: bold;"><span style="color: black;">É
                     necessário viajar um dia antes pois o evento começa as 8:00
                     da manhã.<br>
-                    È necessário voltar um dia depois, pois o evento termina as
-                    22:00 e não há vôo no mesmo dia.<br>
                   </span></span><b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
                       style="color: black;"> </span></span></b> </span></td>
           </tr>
@@ -590,7 +625,22 @@ rows="4"></textarea><br>
             </td>
           </tr>
           <tr align="center">
-            <td><b>4. Relevância da viagem* (campo obrigatorio)</b><br>
+            <td><b>3.2 Quando a volta for em data posterior ao fim do
+                evento/atividade. </b><br>
+              <b><span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplo
+                  : </span></b><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
+                  style="color: rgb(255, 0, 0); font-weight: bold;"><span style="color: black;">É
+                    necessário voltar um dia depois, pois o evento termina as
+                    22:00 e não há vôo no mesmo dia.</span></span></span></td>
+          </tr>
+          <tr>
+            <td><textarea name="justificativa_dia_depois" rows="5"></textarea><br>
+            </td>
+          </tr>
+          <tr align="center">
+            <td><span style="color: rgb(255, 0, 0); font-weight: bold;"><img src="obrigatorio.png"
+                  alt="obrigatorio" style="width: 27px; height: 23px;"></span><b>4.
+                Relevân</b><b>cia da </b><b>viagem* (campo obrigatorio)</b><br>
               <span style="color: rgb(255, 0, 0); font-weight: bold;">Exemplo :
               </span><span style="color: rgb(255, 0, 0); font-weight: bold;"><span
                   style="color: rgb(255, 0, 0); font-weight: bold;"><span style="color: black;">Principal
@@ -685,9 +735,9 @@ rows="4"></textarea><br>
                 type="date"><br>
             </td>
             <td><input required="required" id="local_orig_1" name="local_orig_1"
-                type="text"></td>
+                onblur="origem2destino_cidade()" type="text"></td>
             <td><input required="required" id="uf_orig_1" name="uf_orig_1" maxlength="2"
-                type="text"></td>
+                onblur="origem2destino_uf()" type="text"></td>
             <td><input name="roteiro_data_dest_1" required="required" type="date"><br>
             </td>
             <td><input required="required" id="local_dest_1" name="local_dest_1"
@@ -842,7 +892,8 @@ rows="4"></textarea><br>
                     sugestão precisa ser fiel ao roteiro da viagem fornecido na
                     tabela acima, sob o risco do pedido ser negado. Trata-se de
                     uma sugestão, não há garantia de que a sugestão será
-                    atendida. <br>
+                    atendida. Verifique anteriormente os horários de voos
+                    existentes. <br>
                   </span></b></p>
               <p class="titulo-center"><span style="color: rgb(255, 0, 0);"><span
                     style="font-weight: bold;"><br>
@@ -907,7 +958,13 @@ type="submit"></td>
             <td class="">&nbsp;<?php // outputs e.g. 'Last modified: March 04 1998 20:43:59.'
 echo "Última Modificação: " . date ("d/m/Y H:i:s.", getlastmod());?><br>
               <br>
-              &nbsp;</td>
+              &nbsp;
+              <!-- hitwebcounter Code START -->
+              <a href="http://www.hitwebcounter.com" target="_blank">
+                <img src="http://hitwebcounter.com/counter/counter.php?page=6941253&amp;style=0006&amp;nbdigits=5&amp;type=ip&amp;initCount=0"
+                  title="Hit Web Stats" alt="Hit Web Stats" border="0">
+              </a> <br>
+              <!-- hitwebcounter.com --> </td>
           </tr>
         </tbody>
       </table>

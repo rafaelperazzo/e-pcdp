@@ -673,31 +673,14 @@ if (!empty($_POST['nome_evento3'])) {
 	$valor = $valor . " " . "Atividade 3: " . $_POST['nome_evento3'] . " iniciando em " . $_POST['data_inicio_evento3'] . " as " . $_POST['hora_inicio_evento3'] . " e terminando em " . $_POST['data_termino_evento3'] . " as " . $_POST['hora_termino_evento3'] . ". " . $_POST['cidade_evento3'] . ".\n";
 }
 
-if ((strcasecmp($_POST['tipo_solicitacao'],'Passagens')==0) or (strcasecmp($_POST['tipo_solicitacao'],'Diárias')==0) or (strcasecmp($_POST['tipo_solicitacao'],'limitado')==0)) {
-	if (empty($_POST['justificativa_diarias'])) { //Se a justificativa estiver vazia!
-		travar('Como você está solicitando apenas diárias ou apenas passagens ou nenhum dos dois, deve ser feita uma justificativa.');
-	}
-	else { //Anexa a justificativa. 
-		if (strcasecmp($_POST['tipo_solicitacao'],'Passagens')==0) {
-			$valor = $valor . "Justificativa por solicitar apenas passagens: " . $_POST['justificativa_diarias'];
-		}
-		else {
-			$valor = $valor . "Justificativa por solicitar apenas diárias: " . $_POST['justificativa_diarias'];
-		}
-		//$valor = $valor . $_POST['justificativa_diarias'];
-	}
-}
+
 $pdf->MultiCell(190,5,$valor,1,'J',false);
-//$pdf->MultiCell(190,5,"Congresso de Inovação - Segunda inicia as 8 e terça termina as 18.\n\n\n",1,'J',false);
 $pdf->Ln(3);
 
 $pdf->SetFont('Times','B',10);
 $pdf->Cell(0,0,'Justificativas',0,1,'L');
 $pdf->SetFont('Times','I',8);
 $pdf->Ln(2);
-//$explicacao = 'Justificar quando o afastamento iniciar-se em sextas-feiras, bem os que incluam sábados, domingos ou feriados (§2°, Art. 5°, Dec. 5.992/06) e quando a solicitação não for dentro de prazo mínimo de 10 dias de antecedência em caso de viagem com passagens aéreas º, § 1º IN 03/2015 SLTI/MPOG):';
-//$pdf->MultiCell(190,3,$explicacao,0,'J',false);
-//$pdf->Ln(1);
 $pdf->SetFont('Times','',10);
 
 /*
@@ -732,14 +715,32 @@ if (!empty($_POST['roteiro_data_dest_6'])) {
 	$_POST['roteiro_data_dest_6'] = diaMesAno($_POST['roteiro_data_dest_6']);
 }
 
-//Justificativas: Sábados, domingos e feriados, ou prazo de 10 dias
+//Justificativa 1: Sábados, domingos e feriados, ou prazo de 10 dias
 if (!empty($_POST['data_inicio_evento1'])) {
 	$justificativa = "";
-	$inicio = $_POST['data_inicio_evento1'];
-	$fim = $_POST['data_termino_evento1'];
+	//$inicio = $_POST['data_inicio_evento1'];
+	$inicio = $_POST['roteiro_data_orig_1'];
+	if (!empty($_POST['roteiro_data_dest_1'])) {
+		$fim = $_POST['roteiro_data_dest_1'];
+	}
+	if (!empty($_POST['roteiro_data_dest_2'])) {
+		$fim = $_POST['roteiro_data_dest_2'];
+	}
+	if (!empty($_POST['roteiro_data_dest_3'])) {
+		$fim = $_POST['roteiro_data_dest_3'];
+	}
+	if (!empty($_POST['roteiro_data_dest_4'])) {
+		$fim = $_POST['roteiro_data_dest_4'];
+	}
+	if (!empty($_POST['roteiro_data_dest_5'])) {
+		$fim = $_POST['roteiro_data_dest_5'];
+	}
+	if (!empty($_POST['roteiro_data_dest_6'])) {
+		$fim = $_POST['roteiro_data_dest_6'];
+	}
+	//$fim = $_POST['data_termino_evento1']; //MUDEI
 	$diadasemana = diaDaSemana($inicio);
 	if (($diadasemana==5) or (feriados_fds($inicio,$fim))) {
-	//if (($diadasemana==5)||($diadasemana==6)||($diadasemana==7)) { //Inicia em sexta, sabado ou domingo
 		if (empty($_POST['justificativa_fds'])) { //Obrigatório justificar!
 			travar("Seu afastamento inicia em uma sexta, (ou inclui) sábado, domingo ou feriado. Você precisa justificar!");
 		}
@@ -755,8 +756,9 @@ if (!empty($_POST['data_inicio_evento1'])) {
 	$diferenca = diferencaDatas($inicio,$agora);
 	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		if ($diferenca<10) {
+			//Justificativa 2: Prazo de 10 dias
 			if (empty($_POST['justificativa_prazo'])) { //Obrigatório justificar!
-				travar("Seu afastamento inicia em menos de uma semana. Você precisa justificar!");
+				travar("Seu afastamento inicia em menos de 10 dias. Você precisa justificar!");
 			}
 			else {
 				$justificativa = $justificativa . "2. Prazo de 10 dias: " . $_POST['justificativa_prazo'] . "\n";
@@ -765,14 +767,14 @@ if (!empty($_POST['data_inicio_evento1'])) {
 	}
 }
 
-//Checando início do evento com o início da viagem
+//Justificativa 3. Checando início do evento com o início da viagem
 $diferenca_ida = diferencaDatas($_POST['roteiro_data_orig_1'],$_POST['data_inicio_evento1']);
 if ($diferenca_ida>0) {
 	if (empty($_POST['justificativa_dia_antes'])) {
 		travar("É necessário justificar o motivo da viagem ser iniciada em dia anterior ao início do evento.");
 	}
 	else {
-		$justificativa = $justificativa . "3. Viajar um dia antes do evento: " . $_POST['justificativa_dia_antes'];
+		$justificativa = $justificativa . "3.1 Viajar um dia antes do evento: " . $_POST['justificativa_dia_antes'] . "\n";
 	}
 }
 
@@ -794,20 +796,37 @@ if (!empty($_POST['data_termino_evento6'])) $descricaoDataDaVolta = $_POST['data
 
 $diferenca_volta = diferencaDatas($roteiroDataDaVolta,$descricaoDataDaVolta);
 if ($diferenca_volta>0) {
-	if (empty($_POST['justificativa_dia_antes'])) {
+	if (empty($_POST['justificativa_dia_depois'])) {
 		travar("É necessário justificar o motivo da viagem de volta ser em dia posterior ao dia do fim do evento ou atividades.");
 	}
 	else {
-		$justificativa = $justificativa . $_POST['justificativa_dia_antes'];
+		$justificativa = $justificativa . "3.2 Viajar um dia depois do término das atividades: " . $_POST['justificativa_dia_depois'] . "\n";
 	}
 }
 
 //Justificativa 4: Relevancia do evento
 
-$justificativa = $justificativa . "\n" . "4. Relevancia da atividade: " . $_POST['txtRelevancia'];
+$justificativa = $justificativa . "4. Relevancia da atividade: " . $_POST['txtRelevancia'] . "\n";
 
-//$justificativa = $_POST['justificativa_fds'] . "\n" . $_POST['justificativa_prazo'];
-//$pdf->MultiCell(190,5,"\n\n\n",1,'J',false);
+
+//Justificativa 5: Solicitar apenas passagens, apenas diárias ou nenhum dos dois
+if ((strcasecmp($_POST['tipo_solicitacao'],'Passagens')==0) or (strcasecmp($_POST['tipo_solicitacao'],'Diárias')==0) or (strcasecmp($_POST['tipo_solicitacao'],'limitado')==0)) {
+	if (empty($_POST['justificativa_diarias'])) { //Se a justificativa estiver vazia!
+		travar('Como você está solicitando apenas diárias ou apenas passagens ou nenhum dos dois, deve ser feita uma justificativa.');
+	}
+	else { //Anexa a justificativa. 
+		if (strcasecmp($_POST['tipo_solicitacao'],'Passagens')==0) {
+			$justificativa = $justificativa . "5. Justificativa por solicitar apenas passagens: " . $_POST['justificativa_diarias'];
+		}
+		else if (strcasecmp($_POST['tipo_solicitacao'],'Diárias')==0){
+			$justificativa = $justificativa . "5. Justificativa por solicitar apenas diárias: " . $_POST['justificativa_diarias'];
+		}
+		else {
+			$justificativa = $justificativa . "5. Justificativa por não solicitar nem passagens nem diárias: " . $_POST['justificativa_diarias'];
+		}
+	}
+}
+
 $pdf->MultiCell(190,5,$justificativa,1,'J',false);
 
 $pdf->Ln(1);
@@ -995,10 +1014,10 @@ $pdf->Ln(20);
 $pdf->SetFont('Times','',12);
 if (strcasecmp($_POST['motivo_viagem'],'A serviço')==0) {
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->MultiCell(190,5,'Convite/Convocação;',0,'J',false);
+	$pdf->MultiCell(190,5,'Convite e/ou Convocação;',0,'J',false);
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Cronograma;',0,0,'L');
+	$pdf->Cell(20,0,'Cronograma ou programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
 	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
@@ -1010,9 +1029,11 @@ if (strcasecmp($_POST['motivo_viagem'],'A serviço')==0) {
 
 
 if (strcasecmp($_POST['motivo_viagem'],'Congresso')==0) {
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->MultiCell(190,5,'Memorando de encaminhamento da Chefia Imediata do Proposto, indicando motivo da viagem, período, destino, relevância da participação no evento, e correlação do objetivo do evento com as funções desempenhadas pelo servidor;',0,'J',false);
-	$pdf->Ln(10);
+	if (strcasecmp($_POST['tipo_pedido'],'prpi')==0) { //Se o pedido for direcionado a PRPI, o memorando é necessário. 
+		$pdf->Cell(3,3,'',1,0,'L',false);
+		$pdf->MultiCell(190,5,'Memorando de encaminhamento da Chefia Imediata do Proposto, indicando motivo da viagem, período, destino, relevância da participação no evento, e correlação do objetivo do evento com as funções desempenhadas pelo servidor;',0,'J',false);
+		$pdf->Ln(10);
+	}
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Programação do evento de forma que comprove as datas das atividades a serem realizadas;',0,0,'L');
 	$pdf->Ln(10);
@@ -1023,7 +1044,7 @@ if (strcasecmp($_POST['motivo_viagem'],'Congresso')==0) {
 	}
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Comprovante de Aceite do Trabalho ou inscrição.',0,0,'L');
+	$pdf->Cell(20,0,'Comprovante de inscrição ou de aceite do Trabalho.',0,0,'L');
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
@@ -1031,10 +1052,10 @@ if (strcasecmp($_POST['motivo_viagem'],'Congresso')==0) {
 
 if (strcasecmp($_POST['motivo_viagem'],'Convocação')==0) {
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->MultiCell(190,5,'Convite/Convocação;',0,'J',false);
+	$pdf->MultiCell(190,5,'Convite e/ou Convocação;',0,'J',false);
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Cronograma;',0,0,'L');
+	$pdf->Cell(20,0,'Cronograma ou programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
 	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
@@ -1047,9 +1068,11 @@ if (strcasecmp($_POST['motivo_viagem'],'Convocação')==0) {
 }
 
 if (strcasecmp($_POST['motivo_viagem'],'Encontro/Seminário')==0) {
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->MultiCell(190,5,'Memorando de encaminhamento da Chefia Imediata do Proposto, indicando motivo da viagem, período, destino, relevância da participação no evento, e correlação do objetivo do evento com as funções desempenhadas pelo servidor;',0,'J',false);
-	$pdf->Ln(10);
+	if (strcasecmp($_POST['tipo_pedido'],'prpi')==0) { //Se o pedido for direcionado a PRPI, o memorando é necessário. 
+		$pdf->Cell(3,3,'',1,0,'L',false);
+		$pdf->MultiCell(190,5,'Memorando de encaminhamento da Chefia Imediata do Proposto, indicando motivo da viagem, período, destino, relevância da participação no evento, e correlação do objetivo do evento com as funções desempenhadas pelo servidor;',0,'J',false);
+		$pdf->Ln(10);
+	}
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Programação do evento de forma que comprove as datas das atividades a serem realizadas;',0,0,'L');
 	$pdf->Ln(10);
@@ -1060,7 +1083,7 @@ if (strcasecmp($_POST['motivo_viagem'],'Encontro/Seminário')==0) {
 	}
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Comprovante de Aceite do Trabalho.',0,0,'L');
+	$pdf->Cell(20,0,'Comprovante de inscrição ou de aceite do trabalho.',0,0,'L');
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
@@ -1071,7 +1094,7 @@ if (strcasecmp($_POST['motivo_viagem'],'Treinamento')==0) {
 	$pdf->MultiCell(190,5,'Convite/Convocação;',0,'J',false);
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Cronograma;',0,0,'L');
+	$pdf->Cell(20,0,'Cronograma e/ou Programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
 	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
@@ -1156,10 +1179,13 @@ $pdf->MultiCell(190,5,$termo_compromisso,0,'J',false);
 
 assinatura("Juazeiro do Norte",$dataCompleta,$pdf);*/
 
-//############## GERAR O PDF #####################
 
+
+/*##############GRAVAR NO MYSQL###################*/
 //TODO: Gravar informações no Mysql
+/*******************************************/
 unset($_SESSION['id']);
+//############## GERAR O PDF #####################
 $pdf->Output();
 
 ?>

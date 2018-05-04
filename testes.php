@@ -19,4 +19,18 @@ $myDateTime = DateTime::createFromFormat('Y-m-d\TH:i', '2018-05-15T08:55');
 $convertida = $myDateTime->format('N');
 print($convertida);
 print("\n");
+
+require  'Medoo.php';
+use Medoo\Medoo;
+$database = new Medoo([
+	// required
+	'database_type' => 'mysql',
+	'database_name' => 'facd',
+	'server' => 'localhost',
+	'username' => 'facd',
+	'password' => 'facd',	
+]);
+
+$database->insert("afastamentos",["id"=>"12345"]);
+
 ?>
