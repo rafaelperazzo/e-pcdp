@@ -1007,7 +1007,7 @@ $pdf->AddPage();
 $pdf->Ln(10);
 $pdf->SetFont('Times','B',20);
 $pdf->Cell(0,10,'Documentos requeridos',0,0,'C');
-$pdf->Line(10, 40, 200, 40);
+//$pdf->Line(10, 40, 200, 40);
 $pdf->Ln(20);
 
 //***** Tipo de viagem
@@ -1020,10 +1020,10 @@ if (strcasecmp($_POST['motivo_viagem'],'A serviço')==0) {
 	$pdf->Cell(20,0,'Cronograma ou programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
-	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+	/*if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		$pdf->Cell(3,3,'',1,0,'L',false);
 		$pdf->Cell(20,0,'Sugestão de Vôo;',0,0,'L');
-	}
+	}*/
 	
 }
 
@@ -1038,16 +1038,16 @@ if (strcasecmp($_POST['motivo_viagem'],'Congresso')==0) {
 	$pdf->Cell(20,0,'Programação do evento de forma que comprove as datas das atividades a serem realizadas;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
-	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+	/*if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		$pdf->Cell(3,3,'',1,0,'L',false);
 		$pdf->Cell(20,0,'Sugestão de Vôo;',0,0,'L');
-	}
+	}*/
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Comprovante de inscrição ou de aceite do Trabalho.',0,0,'L');
 	$pdf->Ln(10);
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
+	//$pdf->Cell(3,3,'',1,0,'L',false);
+	//$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
 }
 
 if (strcasecmp($_POST['motivo_viagem'],'Convocação')==0) {
@@ -1058,13 +1058,13 @@ if (strcasecmp($_POST['motivo_viagem'],'Convocação')==0) {
 	$pdf->Cell(20,0,'Cronograma ou programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
-	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+	/*if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		$pdf->Cell(3,3,'',1,0,'L',false);
 		$pdf->Cell(20,0,'Sugestão de Vôo;',0,0,'L');
-	}
+	}*/
 	$pdf->Ln(10);
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
+	//$pdf->Cell(3,3,'',1,0,'L',false);
+	//$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
 }
 
 if (strcasecmp($_POST['motivo_viagem'],'Encontro/Seminário')==0) {
@@ -1077,16 +1077,16 @@ if (strcasecmp($_POST['motivo_viagem'],'Encontro/Seminário')==0) {
 	$pdf->Cell(20,0,'Programação do evento de forma que comprove as datas das atividades a serem realizadas;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
-	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+	/*if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		$pdf->Cell(3,3,'',1,0,'L',false);
 		$pdf->Cell(20,0,'Sugestão de Vôo;',0,0,'L');
-	}
+	}*/
 	$pdf->Ln(10);
 	$pdf->Cell(3,3,'',1,0,'L',false);
 	$pdf->Cell(20,0,'Comprovante de inscrição ou de aceite do trabalho.',0,0,'L');
 	$pdf->Ln(10);
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
+	//$pdf->Cell(3,3,'',1,0,'L',false);
+	//$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
 }
 
 if (strcasecmp($_POST['motivo_viagem'],'Treinamento')==0) {
@@ -1097,13 +1097,13 @@ if (strcasecmp($_POST['motivo_viagem'],'Treinamento')==0) {
 	$pdf->Cell(20,0,'Cronograma e/ou Programação das atividades;',0,0,'L');
 	$pdf->Ln(10);
 	//Se o pedido solicitar passagens, incluir a solicitação de voo
-	if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
+	/*if ((strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0) and (strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)) {
 		$pdf->Cell(3,3,'',1,0,'L',false);
 		$pdf->Cell(20,0,'Sugestão de Vôo;',0,0,'L');
-	}
+	}*/
 	$pdf->Ln(10);
-	$pdf->Cell(3,3,'',1,0,'L',false);
-	$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
+	//$pdf->Cell(3,3,'',1,0,'L',false);
+	//$pdf->Cell(20,0,'Termo de Compromisso.',0,0,'L');
 }
 
 //*************
@@ -1125,16 +1125,16 @@ $termo_compromisso = "Assumo a responsabilidade de prestar contas dessa viagem e
 $pdf->SetFont('Times','',12);
 $pdf->MultiCell(190,5,$termo_compromisso,0,'J',false);
 
-assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
+//assinatura("Juazeiro do Norte",$dataCompleta,$pdf);
 
 //############## SUGESTÃO DE VOO #####################
 //Incluir a folha de sugestão de voo.
 if ((strcasecmp($_POST['tipo_solicitacao'],'Diárias')!=0)&&(strcasecmp($_POST['tipo_solicitacao'],'limitado')!=0)) { //Se a solicitação incluir passagens
-	$pdf->AddPage();
+	//$pdf->AddPage();
 	$pdf->Ln(10);
 	$pdf->SetFont('Times','B',20);
 	$pdf->Cell(0,10,'Sugestão de Voo',0,0,'C');
-	$pdf->Line(10, 40, 200, 40);
+	//$pdf->Line(10, 40, 200, 40);
 	$pdf->Ln(20);
 	$contador = 0;
 	if ((!empty($_POST['sugestao_empresa'])) and (!empty($_POST['sugestao_ida'])) and (!empty($_POST['sugestao_volta'])))  {
@@ -1178,7 +1178,6 @@ $pdf->SetFont('Times','',12);
 $pdf->MultiCell(190,5,$termo_compromisso,0,'J',false);
 
 assinatura("Juazeiro do Norte",$dataCompleta,$pdf);*/
-
 
 
 /*##############GRAVAR NO MYSQL###################*/
