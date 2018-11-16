@@ -413,7 +413,7 @@ $pdf->Cell(15,0,'Nome: ',0,0,'L');
 $pdf->SetFont('Times','',10);
 
 $erros = array();
-
+try {
 //Nome
 if (empty($_POST['nome'])) {
 	$erros[] = "Nome não preenchido";
@@ -1186,5 +1186,8 @@ assinatura("Juazeiro do Norte",$dataCompleta,$pdf);*/
 unset($_SESSION['id']);
 //############## GERAR O PDF #####################
 $pdf->Output();
-
+}
+catch (Exception $e) {
+    echo 'Erro capturado: ',  $e->getMessage(), "\n";
+}
 ?>

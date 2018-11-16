@@ -1,9 +1,9 @@
-s<html>
+<html>
  <?php 
 			session_start();
-			if (!isset($_SESSION['id'])) {
-				$_SESSION['id'] = mt_rand(1000,100000);		
-			}    
+			//if (!isset($_SESSION['id'])) {
+			//	$_SESSION['id'] = mt_rand(1000,100000);		
+			//}    
 ?>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -53,8 +53,8 @@ s<html>
         //document.pcdp_form.siape.disabled = false;
       }
       else {
-      		//document.pcdp_form.alimentacao.disabled = false;
-        //document.pcdp_form.transporte.disabled = false;
+      		document.pcdp_form.alimentacao.disabled = false;
+        document.pcdp_form.transporte.disabled = false;
         //document.pcdp_form.siape.disabled = true;
       }
       
@@ -167,8 +167,8 @@ textarea {
           </td>
           <td class="botoes"> <br>
             <br>
-            <?php print("Número do FACD: ");
-print($_SESSION['id']);?><br>
+            <?php //print("Número do FACD: ");
+//print($_SESSION['id']);?><br>
           </td>
         </tr>
       </tbody>
@@ -978,33 +978,6 @@ echo "Última Modificação: " . date ("d/m/Y H:i:s.", getlastmod());?><br>
         </tbody>
       </table>
     </form>
-    <script type="text/javascript">
-
-		var docente = document.getElementById("tp_proposto_servidor_docente");
-		var adm = document.getElementById("tp_proposto_servidor_administrativo");
-		
-		document.getElementById("tp_proposto_convidado").addEventListener("click", function(){
-			docente.checked = false;
-			adm.checked = false;
-		});
-		
-		document.getElementById("tp_proposto_eventual").addEventListener("click",  function(){
-			docente.checked = false;
-			adm.checked = false;
-		});
-
-		document.getElementById("tp_proposto_sepe").addEventListener("click",  function(){
-			docente.checked = false;
-			adm.checked = false;
-		});
-
-		document.getElementById("tp_proposto_outros").addEventListener("click",  function(){
-			docente.checked = false;
-			adm.checked = false;
-		});
-		
-			
-
-	</script>
+    
   </body>
 </html>
