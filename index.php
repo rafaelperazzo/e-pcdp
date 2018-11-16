@@ -1,4 +1,10 @@
-<html>
+s<html>
+ <?php 
+			session_start();
+			if (!isset($_SESSION['id'])) {
+				$_SESSION['id'] = mt_rand(1000,100000);		
+			}    
+?>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Fórmulário de Afastamento de Curta Duração</title>
@@ -42,14 +48,14 @@
     function tipo_proposto_change() {
       var proposto = document.pcdp_form.tipo.value;
       if (proposto!="SEPE - Servidor de outro poder ou esfera") {
-      	  document.pcdp_form.alimentacao.disabled = true;
-        document.pcdp_form.transporte.disabled = true;
-        document.pcdp_form.siape.disabled = false;
+      	  //document.pcdp_form.alimentacao.disabled = true;
+       // document.pcdp_form.transporte.disabled = true;
+        //document.pcdp_form.siape.disabled = false;
       }
       else {
-      		document.pcdp_form.alimentacao.disabled = false;
-        document.pcdp_form.transporte.disabled = false;
-        document.pcdp_form.siape.disabled = true;
+      		//document.pcdp_form.alimentacao.disabled = false;
+        //document.pcdp_form.transporte.disabled = false;
+        //document.pcdp_form.siape.disabled = true;
       }
       
     }
@@ -66,7 +72,11 @@
 
 	</script>
     <script type="text/javascript" src="date.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src='sisyphus/sisyphus.js'></script>
+    <script>
+    $('form').sisyphus();
+    </script>
+<script type="text/javascript">
             
       			function diferenca_datas(data1,data2) {
             		var minutes = 1000*60;
@@ -133,8 +143,7 @@ textarea {
 }
 </style> </head>
   <body>
-    <?php 
-			session_start();						if (!isset($_SESSION['id'])) {					$_SESSION['id'] = mt_rand(1000,100000);			}    ?>
+    
     <div style="text-align: center;"> <b>Coordenadoria de Inovação -
         Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação (PRPI) <br>
       </b></div>

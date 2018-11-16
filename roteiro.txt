@@ -1,2 +1,2 @@
-17/05/2018;Fortaleza;CE; 17/05/2018; Juazeiro do Norte;CE; Aéreo 
-19/05/2018;Juazeiro do Norte;CE; 19/05/2018; Fortaleza;CE; Aéreo 
+29/11/2018;FORTALEZA;CE; 29/11/2018; JUAZEIRO DO NORTE;CE; Aéreo 
+30/11/2018;JUAZEIRO DO NORTE;CE; 30/11/2018; FORTALEZA;CE; Aéreo 
